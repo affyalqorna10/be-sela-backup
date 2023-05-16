@@ -14,7 +14,7 @@ import com.data.sewalaptop.service.Brandservice;
 public class Brandserviceimpl implements Brandservice {
     @Autowired
     Brandrepository brandrepository;
-    
+
     @Override
     public List<Brand> index() {
         List<Brand> index = brandrepository.findAll();
@@ -36,17 +36,6 @@ public class Brandserviceimpl implements Brandservice {
     }
 
     @Override
-    public Brand Update(Long id, Brand brand) {
-        Brand data = this.show(id);
-        if (data == null) {
-            return null;
-        }
-        data.setNama_brand(brand.getNama_brand());
-        data.setModel(brand.getModel());
-        return data;
-    }
-
-    @Override
     public Brand delete(long id) {
         Brand data = this.show(id);
         if (data == null) {
@@ -55,5 +44,15 @@ public class Brandserviceimpl implements Brandservice {
         brandrepository.delete(data);
         return data;
     }
-    
+
+    @Override
+    public Brand update(Long id, Brand brand) {
+        Brand data = this.show(id);
+        if (data == null) {
+            return null;
+        }
+        data.setName_brand(brand.getName_brand());
+        data.setModel(brand.getModel());
+        return data;
+    }
 }

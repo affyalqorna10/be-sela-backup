@@ -12,7 +12,7 @@ public interface Brandservice {
 
     public Brand show(Long id);
 
-    public Brand Update(Long id, Brand brand);
+    public Brand update(Long id, Brand brand);
 
     public Brand delete(long id);
 }

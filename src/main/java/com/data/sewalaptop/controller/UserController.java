@@ -10,6 +10,7 @@ import com.data.sewalaptop.model.User;
 import com.data.sewalaptop.service.Userservice;
 
 @RestController
+@RequestMapping("user")
 public class UserController {
     @Autowired Userservice usr;
 
