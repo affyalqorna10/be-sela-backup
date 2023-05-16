@@ -10,18 +10,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "spesifikations")
+@Table(name = "spesifications")
 @Getter
 @Setter
-public class Spesifikation {
+public class Spesification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="name_spesifikation")
-    private String name_spesifikation;
+    @Column(name="brand_id")
     private Integer brand_id;
-    private String RAM;
+    private Integer ram;
     private String storage;
     private String graphic_card;
 }
