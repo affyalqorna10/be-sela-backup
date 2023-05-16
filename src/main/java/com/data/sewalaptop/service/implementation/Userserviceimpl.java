@@ -51,6 +51,7 @@ public class Userserviceimpl implements Userservice{
         data.setName(user.getName());
         data.setEmail(user.getEmail());
         data.setPassword(passEncript(user.getPassword()));
+        data.setType(user.getType());
         data.setPhone(user.getPhone());
         data.setAddress(user.getAddress());
         return data;

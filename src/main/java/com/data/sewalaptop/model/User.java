@@ -21,13 +21,20 @@ public class User {
     @Column(name="resourceType")
     private ResourceType type;
 
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(nullable = false) 
     private String password;
+
+    @Column(nullable = false) 
     private String phone;
+
+    @Column(nullable = false) 
     private String address;
     
     public enum ResourceType {
-        Admin,Customer
+        Admin,SuperAdmin
     }
 }
 
