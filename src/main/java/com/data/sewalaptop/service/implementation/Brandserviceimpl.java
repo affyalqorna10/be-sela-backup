@@ -51,6 +51,7 @@ public class Brandserviceimpl implements Brandservice {
         if (data == null) {
             return null;
         }
+        data.setId(brand.getId());
         data.setBrand_name(brand.getBrand_name());
         data.setModel(brand.getModel());
         return data;
