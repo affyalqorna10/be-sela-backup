@@ -20,6 +20,6 @@ public class Brand {
     private Long id;
 
     @Column(name="name_brand")
-    private String name_brand;
+    private String brand_name;
     private String model;
 }

@@ -41,6 +41,7 @@ public class Spesificationserviceimpl implements Spesificationservice {
             return null;
         }
         data.setBrand_id(spesification.getBrand_id());
+        data.setProcessor(spesification.getProcessor());
         data.setRam(spesification.getRam());
         data.setStorage(spesification.getStorage());
         data.setGraphic_card(spesification.getGraphic_card());
