@@ -18,8 +18,8 @@ public class User {
     private String name;
     
     @Enumerated(EnumType.STRING)
-    @Column(name="resourceType")
-    private ResourceType type;
+    @Column(name="posisi")
+    private ResourceType posisi;
 
     @Column(unique = true, nullable = false)
     private String email;
