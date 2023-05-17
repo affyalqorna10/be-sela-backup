@@ -21,7 +21,7 @@ public class Spesification {
     @Column(name="brand_id")
     private Integer brand_id;
     private String processor;
-    private Integer ram;
+    private String ram;
     private String storage;
     private String graphic_card;
 
