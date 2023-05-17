@@ -23,4 +23,5 @@ public class Spesification {
     private Integer ram;
     private String storage;
     private String graphic_card;
+
 }
