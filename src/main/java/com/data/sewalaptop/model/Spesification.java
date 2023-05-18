@@ -19,7 +19,7 @@ public class Spesification {
     private Long id;
 
     @Column(name="brand_id")
-    private Integer brand_id;
+    private Long brand_id;
     private String processor;
     private String ram;
     private String storage;

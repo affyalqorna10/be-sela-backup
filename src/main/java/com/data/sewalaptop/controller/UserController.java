@@ -1,18 +1,41 @@
 package com.data.sewalaptop.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import com.data.sewalaptop.dto.Response;
+import com.data.sewalaptop.dto.Userdto;
 import com.data.sewalaptop.model.User;
 import com.data.sewalaptop.service.Userservice;
 
+import jakarta.validation.Valid;
+
 @RestController
+@ControllerAdvice
 @RequestMapping("user")
 public class UserController {
     @Autowired Userservice usr;
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    
+    public ResponseEntity<String> handleValidationException(MethodArgumentNotValidException ex) {
+        BindingResult result = ex.getBindingResult();
+        List<FieldError> fieldErrors = result.getFieldErrors();
+
+        // Ambil pesan error validasi
+        StringBuilder errorMessage = new StringBuilder();
+        for (FieldError fieldError : fieldErrors) {
+            errorMessage.append(fieldError.getDefaultMessage()).append("; ");
+        }
+
+        return ResponseEntity.badRequest().body(errorMessage.toString());
+    }
 
     @GetMapping("/index")
     public ResponseEntity<Response> index() {
@@ -34,7 +57,7 @@ public class UserController {
         }
 
     @PostMapping("/save")
-    public ResponseEntity<Response> register(@RequestBody User body) {
+    public ResponseEntity<Response> register(@Valid @RequestBody User body,  Userdto userdto) {
         try {
             Response resp = Response.builder()
             .code("200")

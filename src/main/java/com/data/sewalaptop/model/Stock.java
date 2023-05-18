@@ -19,6 +19,6 @@ public class Stock {
     private Long id;
     
     @Column(name="brand_id")
-    private Integer brand_id;
+    private Long brand_id;
     private Integer stock;
 }

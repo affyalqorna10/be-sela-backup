@@ -18,8 +18,9 @@ public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String idmodel;
 
     @Column(name="brand_name")
     private String brand_name;
-    private String model;
+    
 }
