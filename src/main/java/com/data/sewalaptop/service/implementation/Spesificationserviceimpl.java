@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.data.sewalaptop.dto.Spesificationdto;
 import com.data.sewalaptop.model.Spesification;
 import com.data.sewalaptop.repository.Spesificationrepository;
 import com.data.sewalaptop.service.Spesificationservice;
@@ -21,8 +22,14 @@ public class Spesificationserviceimpl implements Spesificationservice {
     }
 
     @Override
-    public Spesification insert(Spesification spesification) {
-        return spesificationrepository.save(spesification);
+    public Spesification insert(Spesificationdto spesification) {
+        Spesification spesificationentity = new Spesification();
+        spesificationentity.setBrand_id(spesification.getBrand_id());
+        spesificationentity.setProcessor(spesification.getProcessor());
+        spesificationentity.setRam(spesification.getRam());
+        spesificationentity.setStorage(spesification.getStorage());
+        spesificationentity.setGraphic_card(spesification.getGraphic_card());
+        return spesificationrepository.save(spesificationentity);
     }
 
     @Override
@@ -35,7 +42,7 @@ public class Spesificationserviceimpl implements Spesificationservice {
     }
 
     @Override
-    public Spesification update(Long id, Spesification spesification) {
+    public Spesification update(Long id, Spesificationdto spesification) {
         Spesification data = this.show(id);
         if (data == null) {
             return null;

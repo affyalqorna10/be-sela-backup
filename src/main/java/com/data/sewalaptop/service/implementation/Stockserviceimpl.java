@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.data.sewalaptop.dto.Stockdto;
 import com.data.sewalaptop.model.Stock;
 import com.data.sewalaptop.repository.Stockrepository;
 import com.data.sewalaptop.service.Stockservice;
@@ -21,8 +22,11 @@ public class Stockserviceimpl implements Stockservice {
     }
 
     @Override
-    public Stock insert(Stock stock) {
-        return stockrepository.save(stock);
+    public Stock insert(Stockdto stock) {
+        Stock stockentity = new Stock();
+        stockentity.setBrand_id(stock.getBrand_id());
+        stockentity.setStock(stock.getStock());
+        return stockrepository.save(stockentity);
     }
 
     @Override
@@ -35,7 +39,7 @@ public class Stockserviceimpl implements Stockservice {
     }
 
     @Override
-    public Stock update(Long id, Stock stock) {
+    public Stock update(Long id, Stockdto stock) {
         Stock data = this.show(id);
         if (data == null) {
             return null;

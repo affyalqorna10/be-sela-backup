@@ -116,7 +116,7 @@ public class BrandController {
             .message("Error")
             .build();
             return new ResponseEntity<Response>(resp, HttpStatus.NOT_FOUND);
-        }    
+        }
     }
 
     @DeleteMapping("{id}")
