@@ -14,8 +14,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name="name")
-    private String name;
+    @Column(name="nama depan")
+    private String nama_depan;
+
+    @Column(name="nama belakang")
+    private String nama_belakang;
     
     @Enumerated(EnumType.STRING)
     @Column(name="posisi")
@@ -26,12 +29,6 @@ public class User {
 
     @Column(nullable = false) 
     private String password;
-
-    @Column(nullable = false) 
-    private String phone;
-
-    @Column(nullable = false) 
-    private String address;
     
     public enum ResourceType {
         Admin,SuperAdmin

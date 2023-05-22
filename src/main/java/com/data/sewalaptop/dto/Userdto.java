@@ -13,15 +13,14 @@ import lombok.Setter;
 public class Userdto {
     private Long id;
     @NotBlank(message = "Nama tidak boleh kosong")
-    private String name;
+    private String nama_depan;
+    @NotBlank(message = "Nama tidak boleh kosong")
+    private String nama_belakang;
     @Email(message = "Email tidak valid")
     private String email;
     @NotBlank(message = "Nama posisi tidak boleh kosong")
-    private ResourceType posisi;
-    @NotBlank(message = "No phone tidak boleh kosong")
-    private String phone;
-    @NotBlank(message = "Address tidak boleh kosong")
-    private String address;
+    private ResourceType type;
+    
     private String token;
 
     public enum ResourceType {

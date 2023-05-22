@@ -48,12 +48,12 @@ public class Userserviceimpl implements Userservice{
         if (data == null) {
             return null;
         }
-        data.setName(user.getName());
+        data.setNama_depan(user.getNama_depan());
+        data.setNama_belakang(user.getNama_belakang());
         data.setEmail(user.getEmail());
         data.setPassword(passEncript(user.getPassword()));
         data.setPosisi(user.getPosisi());
-        data.setPhone(user.getPhone());
-        data.setAddress(user.getAddress());
+        
         return data;
     }
 
@@ -103,7 +103,7 @@ public class Userserviceimpl implements Userservice{
         .signWith(SignatureAlgorithm.HS512, "SecretKey") // Ganti dengan secret key yang lebih aman
         .compact();
 
-        return Userdto.builder().token(token).id(usr.getId()).name(usr.getName()).email(usr.getEmail()).phone(usr.getPhone()).address(usr.getAddress()).build();
+        return Userdto.builder().token(token).id(usr.getId()).nama_depan(usr.getNama_depan()).nama_belakang(usr.getNama_belakang()).email(usr.getEmail()).build();
     }
 
 }
