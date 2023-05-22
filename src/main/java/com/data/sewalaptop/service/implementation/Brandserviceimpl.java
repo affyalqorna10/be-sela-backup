@@ -133,7 +133,7 @@ public class Brandserviceimpl implements Brandservice {
                 responseDto.setStorage(spek.getStorage());
                 responseDto.setGraphic_card(spek.getGraphic_card());
             }
-            List<Stock> stk = stockrepository.findByBrandIdAll(item.getId());
+            List<Fiturdetaildto> stk = stockrepository.findByBrandIdlList(item.getId());
             if (stk != null) {
                 responseDto.setCode(stk.toString());
                 responseDto.setStatus(stk.toString());

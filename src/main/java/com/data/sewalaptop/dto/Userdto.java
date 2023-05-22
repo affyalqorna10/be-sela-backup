@@ -1,5 +1,7 @@
 package com.data.sewalaptop.dto;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
@@ -18,8 +20,9 @@ public class Userdto {
     private String nama_belakang;
     @Email(message = "Email tidak valid")
     private String email;
+    @Enumerated(EnumType.STRING)
     @NotBlank(message = "Nama posisi tidak boleh kosong")
-    private ResourceType type;
+    private ResourceType posisi;
     
     private String token;
 

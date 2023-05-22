@@ -170,7 +170,7 @@ public class BrandController {
         try {
             Response resp = Response.builder()
             .code("200")
-            .data(brand.getAll())
+            .data(brand.getList())
             .message("data all")
             .build();
             return new ResponseEntity<Response>(resp, HttpStatus.OK);
