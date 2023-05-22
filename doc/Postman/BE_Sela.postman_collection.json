@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "174783aa-a681-4cb6-93f1-59dc0cd1f847",
-		"name": "BE Sela",
+		"name": "BE_Sela",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -145,7 +145,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"brandId\":1,\r\n    \"storage\":\"SSD 128 GB\",\r\n    \"processor\":\"Core i5 Gen 9\",\r\n    \"ram\":\"8 GB\",\r\n    \"graphicCard\":\"2 GB 128Bit\"\r\n}",
+							"raw": "{\r\n    \"brandId\":2,\r\n    \"storage\":\"SSD 128 GB\",\r\n    \"processor\":\"Core i7 Gen 9\",\r\n    \"ram\":\"16 GB\",\r\n    \"graphicCard\":\"2 GB 128Bit\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -275,7 +275,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"brandId\":1,\r\n    \"stockQty\":2\r\n}",
+							"raw": "{\r\n    \"brandId\":2,\r\n    \"stockQty\":4\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -412,6 +412,66 @@
 			"name": "TRANSACTION DETAIL STOCK",
 			"item": [
 				{
+					"name": "CREATE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"brandName\":\"\",\r\n    \"storage\":\"\",\r\n    \"processor\":\"\",\r\n    \"ram\":\"\",\r\n    \"graphicCard\":\"\",\r\n    \"stock\":\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/detail_stock/save",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"detail_stock",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"brandId\":,\r\n    \"brandName\":\"\",\r\n    \"storage\":\"\",\r\n    \"processor\":\"\",\r\n    \"ram\":\"\",\r\n    \"graphicCard\":\"\",\r\n    \"stock\":\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/detail_stock/save",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"detail_stock",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "GET BY BRAND ID",
 					"request": {
 						"method": "GET",
@@ -465,7 +525,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8081/api/v1/detail_stock/get_by_brand_id/1",
+							"raw": "localhost:8081/api/v1/customer_stock/get_by_id/3",
 							"host": [
 								"localhost"
 							],
@@ -473,9 +533,9 @@
 							"path": [
 								"api",
 								"v1",
-								"detail_stock",
-								"get_by_brand_id",
-								"1"
+								"customer_stock",
+								"get_by_id",
+								"3"
 							]
 						}
 					},

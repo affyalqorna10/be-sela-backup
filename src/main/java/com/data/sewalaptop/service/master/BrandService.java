@@ -31,7 +31,7 @@ public class BrandService {
         if (brands == null){
             response.setCode("204");
             response.setMessage("Brand ID not found");
-            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         brandRepo.delete(brands);
@@ -85,7 +85,7 @@ public class BrandService {
             }
             response.setCode("204");
             response.setMessage("Brand name cannot be empty");
-            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         response.setCode("409");
@@ -120,7 +120,7 @@ public class BrandService {
 
             response.setCode("204");
             response.setMessage("Brand name cannot be empty");
-            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         response.setCode("409");

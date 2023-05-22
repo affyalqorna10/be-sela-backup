@@ -17,6 +17,9 @@ public interface StockRepository extends PagingAndSortingRepository<MstStock, Lo
     @Query(value = "select ms.* from mst_stock ms where ms.stock_id= :stockId order by stock_id asc limit 1",nativeQuery = true)
     MstStock findByStockId(@Param("stockId") Long stockId);
 
+    @Query(value = "select ms.* from mst_stock ms where ms.brand_id= :brandId order by stock_id asc limit 1",nativeQuery = true)
+    MstStock findByBrandId(@Param("brandId") Long brandId);
+
     @Query(value = "select ms.* from mst_stock ms where ms.brand_id= :brandId order by ms.stock_id asc ",nativeQuery = true)
     List<MstStock> findAllByBrandId(@Param("brandId") Long brandId);
 }

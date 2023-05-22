@@ -31,7 +31,7 @@ public class SpesificationService {
         if (spek == null){
             response.setCode("204");
             response.setMessage("Brand ID not found");
-            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         spekRepo.delete(spek);
@@ -61,8 +61,6 @@ public class SpesificationService {
         response.setMessage("Get All Data successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
-
 
     private ResponseEntity<?> createSpesification(MstSpesifikasiDTO requestDTO) {
         ResponseDTO response = new ResponseDTO();
@@ -115,7 +113,7 @@ public class SpesificationService {
         if (spekList == null) {
             response.setCode("204");
             response.setMessage("data not found");
-            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         MstSpesifikasi spek = spekRepo.findBySpekId(requestDTO.getSpekId());

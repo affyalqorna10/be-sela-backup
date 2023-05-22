@@ -10,5 +10,5 @@ public class TrxDetailStockDTO {
     private String processor;
     private String ram;
     private String graphicCard;
-    private Long stock;
+    private Integer stock;
 }

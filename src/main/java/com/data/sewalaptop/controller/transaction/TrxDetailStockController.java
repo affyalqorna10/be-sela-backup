@@ -1,5 +1,6 @@
 package com.data.sewalaptop.controller.transaction;
 
+import com.data.sewalaptop.dto.transaction.TrxDetailStockDTO;
 import com.data.sewalaptop.service.master.*;
 import com.data.sewalaptop.service.transaction.TrxDetailStockService;
 import org.springframework.beans.factory.annotation.*;
@@ -10,16 +11,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/detail_stock")
 public class TrxDetailStockController {
     @Autowired
-    private BrandService brandService;
-
-    @Autowired
-    private SpesificationService spekService;
-
-    @Autowired
-    private StockService stockService;
-
-    @Autowired
     private TrxDetailStockService tdsService;
+
+    @GetMapping("/save")
+    public ResponseEntity<?> getByBrandId(@RequestBody TrxDetailStockDTO requestDTO){
+
+        return tdsService.saveDetailStock(requestDTO);
+    }
 
     @GetMapping("/get_by_brand_id/{idBrand}")
     public ResponseEntity<?> getByBrandId(@PathVariable Long idBrand){

@@ -33,7 +33,7 @@ public class StockService {
         if (stock == null){
             response.setCode("204");
             response.setMessage("Brand ID not found");
-            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         stockRepo.delete(stock);
@@ -50,7 +50,7 @@ public class StockService {
         if (stockList == null){
             response.setCode("204");
             response.setMessage("Brand ID not found");
-            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         response.setCode("200");
@@ -65,7 +65,7 @@ public class StockService {
         if (stockList == null){
             response.setCode("204");
             response.setMessage("Brand ID not found");
-            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         response.setCode("200");
@@ -80,7 +80,7 @@ public class StockService {
         if (stockList == null){
             response.setCode("204");
             response.setMessage("Brand ID not found");
-            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         response.setCode("200");
@@ -107,12 +107,12 @@ public class StockService {
         if (requestDTO.getBrandId() == null) {
             response.setCode("204");
             response.setMessage("Brand Id cannot be empty");
-            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         if (requestDTO.getStockQty() == null) {
             response.setCode("204");
             response.setMessage("Stock Qty cannot be empty");
-            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         for (int i = 0; i < requestDTO.getStockQty(); i++) {
@@ -138,7 +138,7 @@ public class StockService {
         if (stockList == null){
             response.setCode("204");
             response.setMessage("data not found");
-            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         if (requestDTO.getStockId() == null){
             stockEntity.setStockId(stockList.getStockId());
