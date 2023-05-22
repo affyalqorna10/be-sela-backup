@@ -19,17 +19,17 @@ public class TrxDetailStockController {
     private StockService stockService;
 
     @Autowired
-    private TrxDetailStockService trxDetailStockService;
+    private TrxDetailStockService tdsService;
 
-    @GetMapping("/get_By/{idBrand}")
+    @GetMapping("/get_by_brand_id/{idBrand}")
     public ResponseEntity<?> getByBrandId(@PathVariable Long idBrand){
 
-        return trxDetailStockService.getByBrandId(idBrand);
+        return tdsService.getByBrandId(idBrand);
     }
 
     @GetMapping("/get_all")
     public ResponseEntity<?> getAllNoPageble(){
 
-        return trxDetailStockService.getAllNoPageble();
+        return tdsService.getAllNoPageble();
     }
 }

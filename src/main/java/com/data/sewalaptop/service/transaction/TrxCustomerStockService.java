@@ -7,29 +7,39 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.stereotype.*;
 
-import java.util.*;
+import java.util.List;
 
 @Service
-public class TrxDetailStockService {
+public class TrxCustomerStockService {
     @Autowired
-    private TrxDetailStockRepository tdsRepo;
+    private TrxCustomerStockRepository tcsRepo;
+
+    public ResponseEntity<?> getByCsId(Long csId){
+        ResponseDTO response = new ResponseDTO();
+        TrxCustomerStock cs = tcsRepo.findByCsId(csId);
+
+        response.setCode("200");
+        response.setData(cs);
+        response.setMessage("Get Data Detail Stock Successfully");
+        return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
+    }
 
     public ResponseEntity<?> getByBrandId(Long brandId){
         ResponseDTO response = new ResponseDTO();
-        TrxDetailStock detailStock = tdsRepo.findByBrandId(brandId);
+        List<TrxCustomerStock> customerStocks = tcsRepo.findByBrandId(brandId);
 
         response.setCode("200");
-        response.setData(detailStock);
+        response.setData(customerStocks);
         response.setMessage("Get Data Detail Stock Successfully");
         return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
     }
 
     public ResponseEntity<?> getAllNoPageble(){
         ResponseDTO response = new ResponseDTO();
-        List<TrxDetailStock> stockList = tdsRepo.findAllNoPageble();
+        List<TrxCustomerStock> customerStockList = tcsRepo.findAllNoPageble();
 
         response.setCode("200");
-        response.setData(stockList);
+        response.setData(customerStockList);
         response.setMessage("Get All Data Detail Stock Successfully");
         return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
     }

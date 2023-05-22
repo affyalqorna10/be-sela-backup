@@ -12,6 +12,9 @@ public class TrxCustomerStock {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "brand_id")
+    private String brandId;
+
     @Column(name = "barcode")
     private String barcode;
 

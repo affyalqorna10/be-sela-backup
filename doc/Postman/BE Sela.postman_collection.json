@@ -417,7 +417,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8081/api/v1/detail_stock/get_By/1",
+							"raw": "localhost:8081/api/v1/detail_stock/get_by_brand_id/1",
 							"host": [
 								"localhost"
 							],
@@ -426,7 +426,7 @@
 								"api",
 								"v1",
 								"detail_stock",
-								"get_By",
+								"get_by_brand_id",
 								"1"
 							]
 						}
@@ -458,7 +458,73 @@
 		},
 		{
 			"name": "TRANSACTION CUSTOMER STOCK",
-			"item": []
+			"item": [
+				{
+					"name": "GET BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/v1/detail_stock/get_by_brand_id/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"detail_stock",
+								"get_by_brand_id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET BY BRAND ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/v1/customer_stock/get_by_brand_id/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"customer_stock",
+								"get_by_brand_id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL NO PAGEBLE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/v1/customer_stock/get_all",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"customer_stock",
+								"get_all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
