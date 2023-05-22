@@ -11,12 +11,12 @@ import java.util.*;
 @Repository
 public interface StockRepository extends PagingAndSortingRepository<MstStock, Long> {
 
-    @Query(value = "select ms.* from stocks ms order by ms.stock_id asc ",nativeQuery = true)
+    @Query(value = "select ms.* from mst_stock ms order by ms.stock_id asc ",nativeQuery = true)
     List<MstStock> findAll();
 
-    @Query(value = "select ms.* from stocks ms where ms.stock_id= :stockId order by stock_id asc limit 1",nativeQuery = true)
+    @Query(value = "select ms.* from mst_stock ms where ms.stock_id= :stockId order by stock_id asc limit 1",nativeQuery = true)
     MstStock findByStockId(@Param("stockId") Long stockId);
 
-    @Query(value = "select ms.* from stocks ms where ms.brand_id= :brandId order by ms.stock_id asc ",nativeQuery = true)
+    @Query(value = "select ms.* from mst_stock ms where ms.brand_id= :brandId order by ms.stock_id asc ",nativeQuery = true)
     List<MstStock> findAllByBrandId(@Param("brandId") Long brandId);
 }

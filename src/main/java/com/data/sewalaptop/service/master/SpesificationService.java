@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.stereotype.*;
 
+import java.util.*;
+
 import static com.data.sewalaptop.common.Checker.*;
 
 @Service
@@ -40,6 +42,28 @@ public class SpesificationService {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    public ResponseEntity<?> getByBrandId(Long brandId){
+        ResponseDTO response = new ResponseDTO();
+        MstSpesifikasi spek = spekRepo.findByBrandId(brandId);
+
+        response.setCode("200");
+        response.setData(spek);
+        response.setMessage("Get Data by brand id successfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> getAll(){
+        ResponseDTO response = new ResponseDTO();
+        List<MstSpesifikasi> spekList = spekRepo.findAll();
+
+        response.setCode("200");
+        response.setData(spekList);
+        response.setMessage("Get All Data successfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+
+
     private ResponseEntity<?> createSpesification(MstSpesifikasiDTO requestDTO) {
         ResponseDTO response = new ResponseDTO();
         MstSpesifikasi spekEntity = new MstSpesifikasi();
@@ -59,27 +83,27 @@ public class SpesificationService {
 
                             response.setCode("201");
                             response.setData(null);
-                            response.setMessage("Brand has been saved successfully");
+                            response.setMessage("Spesification has been saved successfully");
                             return new ResponseEntity<>(response, HttpStatus.CREATED);
                         }
                         response.setCode("204");
                         response.setMessage("Graphic Card cannot be empty");
-                        return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+                        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
                     }
                     response.setCode("204");
                     response.setMessage("Ram cannot be empty");
-                    return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+                    return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
                 }
                 response.setCode("204");
                 response.setMessage("Processor cannot be empty");
-                return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
             }
             response.setCode("204");
             response.setMessage("Storage cannot be empty");
-            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         response.setCode("409");
-        response.setMessage("data already exists");
+        response.setMessage("Data Spesification already exists");
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
 
@@ -93,6 +117,7 @@ public class SpesificationService {
             response.setMessage("data not found");
             return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
         }
+
         MstSpesifikasi spek = spekRepo.findBySpekId(requestDTO.getSpekId());
         if (requestDTO.getSpekId() == null) {
             spekEntity.setSpekId(spek.getSpekId());
@@ -107,9 +132,9 @@ public class SpesificationService {
         }
 
         if (isNullStr(requestDTO.getProcessor())) {
-            spekEntity.setStorage(requestDTO.getStorage());
+            spekEntity.setProcessor(spek.getProcessor());
         } else {
-            spekEntity.setStorage(spek.getStorage());
+            spekEntity.setProcessor(requestDTO.getProcessor());
         }
 
         if (isNullStr(requestDTO.getRam())) {
@@ -128,7 +153,7 @@ public class SpesificationService {
 
         response.setCode("201");
         response.setData(null);
-        response.setMessage("Brand has been saved successfully");
+        response.setMessage("Spesification has been saved successfully");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

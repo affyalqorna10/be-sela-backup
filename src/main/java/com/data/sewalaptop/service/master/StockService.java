@@ -44,6 +44,51 @@ public class StockService {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    public ResponseEntity<?> getByStockId(Long stockId){
+        ResponseDTO response = new ResponseDTO();
+        MstStock stockList = stockRepo.findByStockId(stockId);
+        if (stockList == null){
+            response.setCode("204");
+            response.setMessage("Brand ID not found");
+            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+        }
+
+        response.setCode("200");
+        response.setData(stockList);
+        response.setMessage("Get data by stock id successfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> getByBrandId(Long brandId){
+        ResponseDTO response = new ResponseDTO();
+        List<MstStock> stockList = stockRepo.findAllByBrandId(brandId);
+        if (stockList == null){
+            response.setCode("204");
+            response.setMessage("Brand ID not found");
+            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+        }
+
+        response.setCode("200");
+        response.setData(stockList);
+        response.setMessage("Get All data by brand id successfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> getAll(){
+        ResponseDTO response = new ResponseDTO();
+        List<MstStock> stockList = stockRepo.findAll();
+        if (stockList == null){
+            response.setCode("204");
+            response.setMessage("Brand ID not found");
+            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+        }
+
+        response.setCode("200");
+        response.setData(stockList);
+        response.setMessage("Get All data successfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     public byte[] generateBarcode(String barcodeNumber) {
         // Generate barcode image using ZXing
         ByteArrayOutputStream barcode = QRCode.from(barcodeNumber).withSize(250, 250).stream();

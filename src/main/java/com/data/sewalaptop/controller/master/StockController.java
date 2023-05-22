@@ -19,9 +19,27 @@ public class StockController {
     }
 
     @PostMapping("/delete/{idStock}")
-    public ResponseEntity<?> saveStock(@PathVariable Long idStock){
+    public ResponseEntity<?> deleteStock(@PathVariable Long idStock){
 
         return stockService.deleteStock(idStock);
+    }
+
+    @GetMapping("/get_by_brandId/{brandId}")
+    public ResponseEntity<?> getAllByBrandId(@PathVariable Long brandId){
+
+        return stockService.getByBrandId(brandId);
+    }
+
+    @GetMapping("/get_by/{stockId}")
+    public ResponseEntity<?> getByStockId(@PathVariable Long stockId){
+
+        return stockService.getByStockId(stockId);
+    }
+
+    @GetMapping("/get_all")
+    public ResponseEntity<?> getAll(){
+
+        return stockService.getAll();
     }
 
     @GetMapping("/barcode")
