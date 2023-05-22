@@ -16,9 +16,15 @@ public class Userdto {
     private String name;
     @Email(message = "Email tidak valid")
     private String email;
-    @NotBlank(message = "Nama tidak boleh kosong")
+    @NotBlank(message = "Nama posisi tidak boleh kosong")
+    private ResourceType posisi;
+    @NotBlank(message = "No phone tidak boleh kosong")
     private String phone;
-    @NotBlank(message = "Nama tidak boleh kosong")
+    @NotBlank(message = "Address tidak boleh kosong")
     private String address;
     private String token;
+
+    public enum ResourceType {
+        Admin,SuperAdmin
+    }
 }

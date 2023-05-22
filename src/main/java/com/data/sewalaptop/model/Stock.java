@@ -20,5 +20,6 @@ public class Stock {
     
     @Column(name="brand_id")
     private Long brand_id;
-    private Integer stock;
+    private String code;
+    private String status;
 }

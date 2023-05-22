@@ -11,11 +11,9 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SMdto {
 
+public class Fiturdetaildto {
     private Long id;
-
-    private String brand_name;
 
     private String processor;
 
@@ -25,6 +23,8 @@ public class SMdto {
 
     private String graphic_card;
 
-    private Integer stock;
+    private String status;
+
+    private String code;
 
 }

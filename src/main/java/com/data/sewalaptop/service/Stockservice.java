@@ -8,7 +8,7 @@ import com.data.sewalaptop.model.Stock;
 public interface Stockservice {
     public List<Stock> index();
 
-    public Stock insert(Stockdto stock);
+    public List<Stock> insert(Stockdto stock);
 
     public Stock show(Long id);
 

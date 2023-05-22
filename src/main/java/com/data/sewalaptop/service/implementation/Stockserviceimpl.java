@@ -1,5 +1,6 @@
 package com.data.sewalaptop.service.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,11 +23,20 @@ public class Stockserviceimpl implements Stockservice {
     }
 
     @Override
-    public Stock insert(Stockdto stock) {
-        Stock stockentity = new Stock();
-        stockentity.setBrand_id(stock.getBrand_id());
-        stockentity.setStock(stock.getStock());
-        return stockrepository.save(stockentity);
+    public List<Stock> insert(Stockdto stock) {
+        List<Stock> listStocks = new ArrayList<>();
+        for (int i = 0; i < stock.getStock(); i++) {
+            Stock stockentity = new Stock();
+            System.out.print("i data ke " + i);
+            stockentity.setBrand_id(stock.getBrand_id());
+            stockentity.setStatus("aktif");
+            stockentity.setCode(String.format("%s",i));
+            
+            stockrepository.save(stockentity);
+            System.out.print("save data " + i); 
+            listStocks.add(stockentity);
+        }
+        return listStocks;
     }
 
     @Override
@@ -40,12 +50,14 @@ public class Stockserviceimpl implements Stockservice {
 
     @Override
     public Stock update(Long id, Stockdto stock) {
-        Stock data = this.show(id);
+        Stock data = stockrepository.findByStockId(id);
         if (data == null) {
             return null;
         }
         data.setBrand_id(stock.getBrand_id());
-        data.setStock(stock.getStock());
+        data.setCode(data.getCode());
+        data.setStatus(data.getStatus());
+
         return data;
     }
 

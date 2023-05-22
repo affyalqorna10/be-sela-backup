@@ -13,6 +13,4 @@ public class Branddto {
 
     //@NotBlank(message = "Nama tidak boleh kosong")
     private String brand_name;
-    //@NotBlank(message = "Nama tidak boleh kosong")
-    private String idmodel;
 }

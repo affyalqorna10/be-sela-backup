@@ -5,14 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.data.sewalaptop.service.Response;
 import com.data.sewalaptop.dto.Branddto;
@@ -42,16 +35,13 @@ public class BrandController {
             .message("Error")
             .build();
             return new ResponseEntity<Response>(resp, HttpStatus.NOT_FOUND);
-            }
         }
+    }
 
     @PostMapping("/save")
     public ResponseEntity<Response> insert(@RequestBody Branddto body) {
         try {
             if (body.getBrand_name() == null || body.getBrand_name().isEmpty()) {
-                Response rest = Response.builder().code("400").data(null).message("Product not Available").build();
-                return new ResponseEntity<Response>(rest, HttpStatus.INTERNAL_SERVER_ERROR);
-            } else if (body.getIdmodel() == null || body.getIdmodel().isEmpty()) {
                 Response rest = Response.builder().code("400").data(null).message("Product not Available").build();
                 return new ResponseEntity<Response>(rest, HttpStatus.INTERNAL_SERVER_ERROR);
             } else {
@@ -108,7 +98,6 @@ public class BrandController {
                 Response rest = Response.builder().code("400").data(null).message("Product not Available").build();
                 return new ResponseEntity<Response>(rest, HttpStatus.INTERNAL_SERVER_ERROR);
             }
-           
         } catch (Exception e) {
             Response resp = Response.builder()
             .code("400")
@@ -135,7 +124,7 @@ public class BrandController {
             .message("Error")
             .build();
             return new ResponseEntity<Response>(resp, HttpStatus.NOT_FOUND);
-        }    
+        }
     }
 
     @GetMapping("/byid/{id}")
@@ -163,7 +152,7 @@ public class BrandController {
             Response resp = Response.builder()
             .code("200")
             .data(brand.getAll())
-            .message("data index")
+            .message("data all")
             .build();
             return new ResponseEntity<Response>(resp, HttpStatus.OK);
         } catch (Exception e) {
@@ -173,6 +162,25 @@ public class BrandController {
             .message("Error")
             .build();
             return new ResponseEntity<Response>(resp, HttpStatus.NOT_FOUND);
-            }
         }
+    }
+
+    @GetMapping("/List")
+    public ResponseEntity<Response> getList() {
+        try {
+            Response resp = Response.builder()
+            .code("200")
+            .data(brand.getAll())
+            .message("data all")
+            .build();
+            return new ResponseEntity<Response>(resp, HttpStatus.OK);
+        } catch (Exception e) {
+            Response resp = Response.builder()
+            .code("400")
+            .data(brand.getAll())
+            .message("Error")
+            .build();
+            return new ResponseEntity<Response>(resp, HttpStatus.NOT_FOUND);
+        }
+    }
 }

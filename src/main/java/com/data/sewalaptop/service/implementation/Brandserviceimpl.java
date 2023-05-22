@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.data.sewalaptop.dto.Branddto;
+import com.data.sewalaptop.dto.Fiturdetaildto;
 import com.data.sewalaptop.dto.SMdto;
 import com.data.sewalaptop.model.Brand;
 import com.data.sewalaptop.model.Spesification;
@@ -34,7 +35,6 @@ public class Brandserviceimpl implements Brandservice {
         Brand brandentity = new Brand();
         brandentity.setId(brand.getId());
         brandentity.setBrand_name(brand.getBrand_name());
-        brandentity.setIdmodel(brand.getIdmodel());
         return brandrepository.save(brandentity);
     }
 
@@ -53,7 +53,6 @@ public class Brandserviceimpl implements Brandservice {
         if (data == null) {
             return null;
         }
-        data.setIdmodel(brand.getIdmodel());
         data.setBrand_name(brand.getBrand_name());
         return data;
     }
@@ -75,7 +74,6 @@ public class Brandserviceimpl implements Brandservice {
         if (brand != null) {
         responseDto.setId(brand.getId());
         responseDto.setBrand_name(brand.getBrand_name());
-        responseDto.setIdmodel(brand.getIdmodel());
         }
         Spesification spek = spesificationrepository.findByBrandId(id);
         if (spek != null) {
@@ -84,9 +82,9 @@ public class Brandserviceimpl implements Brandservice {
             responseDto.setStorage(spek.getStorage());
             responseDto.setGraphic_card(spek.getGraphic_card());
         }
-        Stock stk = stockrepository.findByBrandId(id);
+        List<Stock> stk = stockrepository.findByBrandIdAll(id);
         if (stk != null) {
-            responseDto.setStock(stk.getStock());
+            responseDto.setStock(stk.size());
         }
         return responseDto;
     }
@@ -101,7 +99,6 @@ public class Brandserviceimpl implements Brandservice {
         if (brand != null) {
             responseDto.setId(brand.getId());
             responseDto.setBrand_name(brand.getBrand_name());
-            responseDto.setIdmodel(brand.getIdmodel());
             }
             Spesification spek = spesificationrepository.findByBrandId(item.getId());
             if (spek != null) {
@@ -110,12 +107,41 @@ public class Brandserviceimpl implements Brandservice {
                 responseDto.setStorage(spek.getStorage());
                 responseDto.setGraphic_card(spek.getGraphic_card());
             }
-            Stock stk = stockrepository.findByBrandId(item.getId());
+            List<Stock> stk = stockrepository.findByBrandIdAll(item.getId());
             if (stk != null) {
-                responseDto.setStock(stk.getStock());
+                responseDto.setStock(stk.size());
             }
             getall.add(responseDto);
         });
         return getall;
     }
+
+    @Override
+    public List<Fiturdetaildto> getList() {
+        List<Fiturdetaildto> getlist = new ArrayList<>();
+        List<Brand> brandList = brandrepository.findAll();
+        brandList.forEach((item)->{
+            Fiturdetaildto responseDto = new Fiturdetaildto();
+            Brand brand = brandrepository.findByBrandId(item.getId());
+        if (brand != null) {
+            responseDto.setId(brand.getId());
+        }
+        Spesification spek = spesificationrepository.findByBrandId(item.getId());
+            if (spek != null) {
+                responseDto.setProcessor(spek.getProcessor());
+                responseDto.setRam(spek.getRam());
+                responseDto.setStorage(spek.getStorage());
+                responseDto.setGraphic_card(spek.getGraphic_card());
+            }
+            List<Stock> stk = stockrepository.findByBrandIdAll(item.getId());
+            if (stk != null) {
+                responseDto.setCode(stk.toString());
+                responseDto.setStatus(stk.toString());
+            }
+            getlist.add(responseDto);
+        });
+        return getlist;
+    }
+
+    
 }

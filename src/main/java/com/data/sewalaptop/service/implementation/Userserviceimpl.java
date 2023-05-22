@@ -91,7 +91,7 @@ public class Userserviceimpl implements Userservice{
         User usr = userrepository.findByEmail(dataRequest.getEmail());
         if (usr == null) {
             throw new Exception("Invalid email or password.");
-        } 
+        }
         String pas=passEncript(dataRequest.getPassword());
         if (!pas.equals(usr.getPassword())){
             throw new Exception("Invalid email or password.");
@@ -103,7 +103,6 @@ public class Userserviceimpl implements Userservice{
         .signWith(SignatureAlgorithm.HS512, "SecretKey") // Ganti dengan secret key yang lebih aman
         .compact();
 
-        
         return Userdto.builder().token(token).id(usr.getId()).name(usr.getName()).email(usr.getEmail()).phone(usr.getPhone()).address(usr.getAddress()).build();
     }
 
