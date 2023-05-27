@@ -10,6 +10,7 @@ import org.springframework.stereotype.*;
 
 import java.util.*;
 
+import static com.data.sewalaptop.common.AutoGenerate.*;
 import static com.data.sewalaptop.common.Checker.*;
 
 @Service
@@ -29,7 +30,7 @@ public class RoleService {
         MstRole role = roleRepo.findByRoleId(roleId);
         if (role == null){
             response.setCode("204");
-            response.setMessage("Brand ID not found");
+            response.setMessage("Role ID not found");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -37,7 +38,7 @@ public class RoleService {
 
         response.setCode("200");
         response.setData(null);
-        response.setMessage("Brand id successfully deleted");
+        response.setMessage("Role id successfully deleted");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -47,7 +48,7 @@ public class RoleService {
 
         response.setCode("200");
         response.setData(role);
-        response.setMessage("Get Data By Brand Id successfully");
+        response.setMessage("Get Data By Role Id successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -66,8 +67,9 @@ public class RoleService {
         MstRole roles = roleRepo.findByRoleName(requestDTO.getRoleName());
         if (roles == null) {
             MstRole roleEntity = new MstRole();
-            // Validate Brand Name null && string only
+            // Validate Role Name null && string only
             if (isNullStr(requestDTO.getRoleName())) {
+                roleEntity.setRoleId(num_id());
                 roleEntity.setRoleName(requestDTO.getRoleName());
                 roleRepo.save(roleEntity);
 
@@ -91,7 +93,7 @@ public class RoleService {
         ResponseDTO response = new ResponseDTO();
         MstRole roles = roleRepo.findByRoleName(requestDTO.getRoleName());
 
-        if (Objects.equals(roles.getRoleName(), requestDTO.getRoleName())) {
+        if (Objects.equals(roles.getRoleName().toLowerCase(), requestDTO.getRoleName().toLowerCase())) {
             MstRole roleEntity = new MstRole();
             if (isNullStr(requestDTO.getRoleName())) {
                 roleEntity.setRoleName(requestDTO.getRoleName());
