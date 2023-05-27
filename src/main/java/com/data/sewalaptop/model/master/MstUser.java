@@ -25,5 +25,8 @@ public class MstUser {
     private String password;
 
     @Column(name = "user_posisi")
-    private String userPosisi;
+    private Long userPosisi;
+
+    @Column(name = "user_jwt")
+    private Long userJwt;
 }
