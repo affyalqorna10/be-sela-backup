@@ -15,17 +15,8 @@ public class TrxDetailStock {
     @Column(name = "brand_name")
     private String brandName;
 
-    @Column(name = "storage")
-    private String storage;
-
-    @Column(name = "processor")
-    private String processor;
-
-    @Column(name = "ram")
-    private String ram;
-
-    @Column(name = "graphic_card")
-    private String graphicCard;
+    @Column(name = "spek")
+    private String spek;
 
     @Column(name = "stock")
     private Long stock;

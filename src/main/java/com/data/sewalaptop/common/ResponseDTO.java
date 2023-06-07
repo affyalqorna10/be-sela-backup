@@ -1,5 +1,6 @@
 package com.data.sewalaptop.common;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

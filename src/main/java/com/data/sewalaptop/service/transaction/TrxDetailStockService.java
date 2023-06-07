@@ -57,10 +57,7 @@ public class TrxDetailStockService {
         MstBrands brand = brandRepo.findByBrandName(requestDTO.getBrandName());
         MstSpesifikasiDTO spekDTO = new MstSpesifikasiDTO();
         spekDTO.setBrandId(brand.getBrandId());
-        spekDTO.setStorage(requestDTO.getStorage());
-        spekDTO.setProcessor(requestDTO.getProcessor());
-        spekDTO.setRam(requestDTO.getRam());
-        spekDTO.setGraphicCard(requestDTO.getGraphicCard());
+        spekDTO.setSpek(requestDTO.getSpek());
         status = spekService.saveSpesification(spekDTO).getStatusCodeValue();
 
         // Stock Save
@@ -96,10 +93,7 @@ public class TrxDetailStockService {
         MstSpesifikasiDTO spekDTO = new MstSpesifikasiDTO();
         spekDTO.setSpekId(spek.getSpekId());
         spekDTO.setBrandId(requestDTO.getBrandId());
-        spekDTO.setStorage(requestDTO.getStorage());
-        spekDTO.setProcessor(requestDTO.getProcessor());
-        spekDTO.setRam(requestDTO.getRam());
-        spekDTO.setGraphicCard(requestDTO.getGraphicCard());
+        spekDTO.setSpek(requestDTO.getSpek());
         status = spekService.saveSpesification(spekDTO).getStatusCodeValue();
 
         // Stock Save
@@ -107,7 +101,7 @@ public class TrxDetailStockService {
         MstStockDTO stockDTO = new MstStockDTO();
         stockDTO.setStockQty(Math.toIntExact(requestDTO.getStock()));
         stockDTO.setBrandId(requestDTO.getBrandId());
-//        status = stockService.saveStock(stockDTO).getStatusCodeValue();
+        status = stockService.saveStock(stockDTO).getStatusCodeValue();
 
         ResponseDTO response = new ResponseDTO();
         if (status == 201){

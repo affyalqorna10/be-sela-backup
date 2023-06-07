@@ -6,9 +6,6 @@ import lombok.*;
 public class TrxDetailStockDTO {
     private Long brandId;
     private String brandName;
-    private String storage;
-    private String processor;
-    private String ram;
-    private String graphicCard;
+    private String spek;
     private Integer stock;
 }

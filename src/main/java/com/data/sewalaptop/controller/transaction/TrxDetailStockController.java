@@ -13,7 +13,7 @@ public class TrxDetailStockController {
     @Autowired
     private TrxDetailStockService tdsService;
 
-    @GetMapping("/save")
+    @PostMapping("/save")
     public ResponseEntity<?> getByBrandId(@RequestBody TrxDetailStockDTO requestDTO){
 
         return tdsService.saveDetailStock(requestDTO);

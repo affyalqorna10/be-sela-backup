@@ -89,13 +89,6 @@ public class StockService {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    public byte[] generateBarcode(String barcodeNumber) {
-        // Generate barcode image using ZXing
-        ByteArrayOutputStream barcode = QRCode.from(barcodeNumber).withSize(250, 250).stream();
-
-        return barcode.toByteArray();
-    }
-
     private ResponseEntity<?> createStock(MstStockDTO requestDTO) {
         ResponseDTO response = new ResponseDTO();
         List<MstStock> stockList = stockRepo.findAllByBrandId(requestDTO.getBrandId());

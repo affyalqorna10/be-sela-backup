@@ -67,39 +67,21 @@ public class SpesificationService {
         MstSpesifikasi spekEntity = new MstSpesifikasi();
         MstSpesifikasi spek = spekRepo.findByBrandId(requestDTO.getBrandId());
         if (spek == null) {
-            if (isNullStr(requestDTO.getStorage())) {
-                if (isNullStr(requestDTO.getProcessor())) {
-                    if (isNullStr(requestDTO.getRam())) {
-                        if (isNullStr(requestDTO.getGraphicCard())) {
-                            spekEntity.setBrandId(requestDTO.getBrandId());
-                            spekEntity.setStorage(requestDTO.getStorage());
-                            spekEntity.setProcessor(requestDTO.getProcessor());
-                            spekEntity.setRam(requestDTO.getRam());
-                            spekEntity.setGraphicCard(requestDTO.getGraphicCard());
+            if (isNullStr(requestDTO.getSpek())){
+                spekEntity.setBrandId(requestDTO.getBrandId());
+                spekEntity.setSpeks(requestDTO.getSpek());
 
-                            spekRepo.save(spekEntity);
+                spekRepo.save(spekEntity);
 
-                            response.setCode("201");
-                            response.setData(null);
-                            response.setMessage("Spesification has been saved successfully");
-                            return new ResponseEntity<>(response, HttpStatus.CREATED);
-                        }
-                        response.setCode("204");
-                        response.setMessage("Graphic Card cannot be empty");
-                        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-                    }
-                    response.setCode("204");
-                    response.setMessage("Ram cannot be empty");
-                    return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+                response.setCode("201");
+                response.setData(null);
+                response.setMessage("Spesification has been saved successfully");
+                return new ResponseEntity<>(response, HttpStatus.CREATED);
                 }
-                response.setCode("204");
-                response.setMessage("Processor cannot be empty");
-                return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-            }
             response.setCode("204");
-            response.setMessage("Storage cannot be empty");
+            response.setMessage("Brand Id cannot be empty");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+            }
         response.setCode("409");
         response.setMessage("Data Spesification already exists");
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
@@ -123,28 +105,16 @@ public class SpesificationService {
             spekEntity.setSpekId(requestDTO.getSpekId());
         }
 
-        if (isNullStr(requestDTO.getStorage())) {
+        if (isNullStr(requestDTO.getSpek())) {
             spekEntity.setBrandId(requestDTO.getBrandId());
         } else {
             spekEntity.setBrandId(spek.getBrandId());
         }
 
-        if (isNullStr(requestDTO.getProcessor())) {
-            spekEntity.setProcessor(spek.getProcessor());
+        if (isNullStr(requestDTO.getSpek())) {
+            spekEntity.setSpeks(requestDTO.getSpek());
         } else {
-            spekEntity.setProcessor(requestDTO.getProcessor());
-        }
-
-        if (isNullStr(requestDTO.getRam())) {
-            spekEntity.setRam(requestDTO.getRam());
-        } else {
-            spekEntity.setRam(spek.getRam());
-        }
-
-        if (isNullStr(requestDTO.getGraphicCard())) {
-            spekEntity.setGraphicCard(requestDTO.getGraphicCard());
-        } else {
-            spekEntity.setGraphicCard(spek.getGraphicCard());
+            spekEntity.setSpeks(spek.getSpeks());
         }
 
         spekRepo.save(spekEntity);

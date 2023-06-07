@@ -5,8 +5,5 @@ import lombok.*;
 public class MstSpesifikasiDTO {
     private Long spekId;
     private Long brandId;
-    private String storage;
-    private String processor;
-    private String ram;
-    private String graphicCard;
+    private String spek ;
 }

@@ -4,9 +4,14 @@ import lombok.*;
 @Getter @Setter
 public class MstUserDTO {
     private Long userId;
-    private String userEmail;
-    private String namaBelakang;
+    private Long ugId;
+    private Long divisiId;
+    private String nikUser;
     private String namaDepan;
+    private String namaBelakang;
+    private String userEmail;
     private String password;
-    private String userPosisi;
+    private String telpUser;
+    private String alamatUser;
+    private String status;
 }

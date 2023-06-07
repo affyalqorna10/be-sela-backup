@@ -42,9 +42,4 @@ public class StockController {
         return stockService.getAll();
     }
 
-    @GetMapping("/barcode")
-    public byte[] saveStock(@RequestBody String codeQr){
-
-        return stockService.generateBarcode(codeQr);
-    }
 }
