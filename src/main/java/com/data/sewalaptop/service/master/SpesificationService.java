@@ -67,9 +67,9 @@ public class SpesificationService {
         MstSpesifikasi spekEntity = new MstSpesifikasi();
         MstSpesifikasi spek = spekRepo.findByBrandId(requestDTO.getBrandId());
         if (spek == null) {
-            if (isNullStr(requestDTO.getSpek())){
+            if (isNullStr(requestDTO.getSpeks())){
                 spekEntity.setBrandId(requestDTO.getBrandId());
-                spekEntity.setSpeks(requestDTO.getSpek());
+                spekEntity.setSpek_name(requestDTO.getSpeks());
 
                 spekRepo.save(spekEntity);
 
@@ -105,16 +105,11 @@ public class SpesificationService {
             spekEntity.setSpekId(requestDTO.getSpekId());
         }
 
-        if (isNullStr(requestDTO.getSpek())) {
-            spekEntity.setBrandId(requestDTO.getBrandId());
-        } else {
-            spekEntity.setBrandId(spek.getBrandId());
-        }
 
-        if (isNullStr(requestDTO.getSpek())) {
-            spekEntity.setSpeks(requestDTO.getSpek());
+        if (isNullStr(requestDTO.getSpeks())) {
+            spekEntity.setSpek_name(requestDTO.getSpeks());
         } else {
-            spekEntity.setSpeks(spek.getSpeks());
+            spekEntity.setSpek_name(requestDTO.getSpeks());
         }
 
         spekRepo.save(spekEntity);

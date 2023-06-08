@@ -4,15 +4,9 @@ import com.data.sewalaptop.common.ResponseDTO;
 import com.data.sewalaptop.dto.master.MstVendorDTO;
 import com.data.sewalaptop.dto.master.PengajuanDTO;
 import com.data.sewalaptop.dto.transaction.MstNotaDinasDTO;
-import com.data.sewalaptop.model.master.MstKaryawan;
-import com.data.sewalaptop.model.master.MstUser;
-import com.data.sewalaptop.model.master.MstVendor;
-import com.data.sewalaptop.model.master.Pengajuan;
+import com.data.sewalaptop.model.master.*;
 import com.data.sewalaptop.model.transaction.MstNotaDinas;
-import com.data.sewalaptop.repository.master.KaryawanRepository;
-import com.data.sewalaptop.repository.master.PengajuanRepository;
-import com.data.sewalaptop.repository.master.UserRepository;
-import com.data.sewalaptop.repository.master.VendorRepository;
+import com.data.sewalaptop.repository.master.*;
 import com.data.sewalaptop.repository.transaction.NotaDinasRepository;
 import com.data.sewalaptop.service.transaction.NotaDinasService;
 import org.hibernate.sql.Update;
@@ -43,6 +37,9 @@ public class PengajuanService {
     private UserService userService;
 
     @Autowired
+    private DivisiService divisiService;
+
+    @Autowired
     private KaryawanService karyawanService;
 
     @Autowired
@@ -57,6 +54,9 @@ public class PengajuanService {
     @Autowired
     private KaryawanRepository karyawanRepo;
 
+    @Autowired
+    private DivisiRespository divisiRespo;
+
     public ResponseEntity<?> savePengajuan(PengajuanDTO requestDTO){
         if (requestDTO.getPengajuanId() == null) {
             return createPengajuan(requestDTO);
@@ -67,24 +67,39 @@ public class PengajuanService {
     private ResponseEntity<?> createPengajuan(PengajuanDTO requestDTO) {
         ResponseDTO response = new ResponseDTO();
         MstUser user = userRepo.findByUserId(requestDTO.getUserId());
-        MstKaryawan karyawan = karyawanRepo.findByKaryawanId(requestDTO.getKaryawanId());
+        MstKaryawan karyawan = karyawanRepo.findByNikKaryawan(requestDTO.getNikKaryawan());
+        MstKaryawan karyawan1 = karyawanRepo.findByKaryawanId(requestDTO.getKaryawanId());
+        MstDivisi divisi = divisiRespo.findByDivisiId(requestDTO.getDivisiId());
 
         if (user.getUserId() == null) {
             response.setCode("204");
             response.setMessage("User Id cannot be empty");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        if (karyawan.getKaryawanId() == null) {
+        if (karyawan.getNikKaryawan() == null) {
             response.setCode("204");
             response.setMessage("karyawam Id cannot be empty");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        if (divisi.getDivisiId() == null){
+            response.setCode("204");
+            response.setMessage("Divisi Id cannot be empty");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        if (karyawan1.getKaryawanId() == null){
+            response.setCode("204");
+            response.setMessage("karyawam Id cannot be empty");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
         Pengajuan pengajuanEntity = new Pengajuan();
         Pengajuan pengajuan = pengajuanRepo.findByPengajuanId(requestDTO.getPengajuanId());
 
         if (pengajuan == null) {
             pengajuanEntity.setUserId(requestDTO.getUserId());
             pengajuanEntity.setKaryawanId(requestDTO.getKaryawanId());
+            pengajuanEntity.setNikKaryawan(requestDTO.getNikKaryawan());
+            pengajuanEntity.setDivisiId(requestDTO.getDivisiId());
             pengajuanEntity.setNoMemo(requestDTO.getNoMemo());
             pengajuanEntity.setTglPengajuan(requestDTO.getTglPengajuan());
             pengajuanEntity.setStatus(requestDTO.getStatus());
@@ -124,7 +139,19 @@ public class PengajuanService {
         if (requestDTO.getKaryawanId() == null){
             pengajuanEntity.setKaryawanId(pengajuan.getKaryawanId());
         }else {
-            pengajuanEntity.setKaryawanId(pengajuan.getKaryawanId());
+            pengajuanEntity.setKaryawanId(requestDTO.getKaryawanId());
+        }
+
+        if (requestDTO.getDivisiId() == null){
+            pengajuanEntity.setDivisiId(pengajuan.getDivisiId());
+        }else {
+            pengajuanEntity.setDivisiId(requestDTO.getDivisiId());
+        }
+
+        if (requestDTO.getNikKaryawan() == null){
+            pengajuanEntity.setNikKaryawan(pengajuan.getNikKaryawan());
+        }else{
+            pengajuanEntity.setNikKaryawan(requestDTO.getNikKaryawan());
         }
 
         if (isNullStr(requestDTO.getNoMemo())){
@@ -138,6 +165,7 @@ public class PengajuanService {
         }else{
             pengajuanEntity.setTglPengajuan(requestDTO.getTglPengajuan());
         }
+
 
         if (isNullStr(requestDTO.getStatus())){
             pengajuanEntity.setStatus(requestDTO.getStatus());

@@ -2,9 +2,6 @@ package com.data.sewalaptop.model.master;
 
 import lombok.*;
 import javax.persistence.*;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -20,7 +17,7 @@ public class MstSpesifikasi {
     @Column(name = "brand_id")
     private Long brandId;
 
-    @Column(name = "sepesifikasi", columnDefinition = "TEXT", nullable = false)
-    private String speks;
+    @Column(name = "spesifikasi", columnDefinition = "TEXT", nullable = false)
+    private String spek_name;
 
 }

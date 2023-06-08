@@ -5,5 +5,5 @@ import lombok.*;
 public class MstSpesifikasiDTO {
     private Long spekId;
     private Long brandId;
-    private String spek ;
+    private String speks;
 }

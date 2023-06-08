@@ -19,9 +19,8 @@ public class KaryawanController {
     JwtService jwtService;
 
     @PostMapping("/save")
-    public ResponseEntity<?> saveKaryawan(@RequestHeader Map<String,String> header, @RequestBody MstKaryawanDTO request){
+    public ResponseEntity<?> saveKaryawan(@RequestBody MstKaryawanDTO request){
 
-        jwtService.filter(header);
         return karyawanService.savekaryawan(request);
     }
 
@@ -37,13 +36,6 @@ public class KaryawanController {
 
         jwtService.filter(header);
         return karyawanService.getBykaryawanId(idKaryawan);
-    }
-
-    @GetMapping("/get_by_nik/{NIK}")
-    public ResponseEntity<?> getByNIK(@RequestHeader Map<String,String> header, @PathVariable String NIK){
-
-        jwtService.filter(header);
-        return karyawanService.getByNIK(NIK);
     }
 
     @GetMapping("/get_all")
