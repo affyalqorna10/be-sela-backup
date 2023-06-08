@@ -19,6 +19,12 @@ public class StockService {
     @Autowired
     private StockRepository stockRepo;
 
+    @Autowired
+    private VendorRepository vendorRepo;
+
+    @Autowired
+    private VendorService vendorService;
+
     public ResponseEntity<?> saveStock(MstStockDTO requestDTO){
         if (requestDTO.getStockId() == null){
             return createStock(requestDTO);
@@ -92,6 +98,7 @@ public class StockService {
     private ResponseEntity<?> createStock(MstStockDTO requestDTO) {
         ResponseDTO response = new ResponseDTO();
         List<MstStock> stockList = stockRepo.findAllByBrandId(requestDTO.getBrandId());
+        MstVendor vendor = vendorRepo.findByVendorId(requestDTO.getVendorId());
         if (stockList.size() > 0) {
             response.setCode("409");
             response.setMessage("data already exists");
@@ -102,6 +109,13 @@ public class StockService {
             response.setMessage("Brand Id cannot be empty");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+        if (vendor.getVendorId() == null){
+            response.setCode("204");
+            response.setMessage("Brand Id cannot be empty");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
         if (requestDTO.getStockQty() == null) {
             response.setCode("204");
             response.setMessage("Stock Qty cannot be empty");
@@ -112,6 +126,7 @@ public class StockService {
             MstStock stockEntity = new MstStock();
 
             stockEntity.setBrandId(requestDTO.getBrandId());
+            stockEntity.setVendorId(requestDTO.getVendorId());
             stockEntity.setCodeQr(UUID.randomUUID().toString());
             stockEntity.setStatus("ACTIVE");
 
@@ -155,6 +170,12 @@ public class StockService {
             stockEntity.setStockId(stockList.getBrandId());
         } else {
             stockEntity.setStockId(requestDTO.getBrandId());
+        }
+
+        if (requestDTO.getVendorId() == null){
+            stockEntity.setStockId(stockList.getVendorId());
+        }else{
+            stockEntity.setStockId(requestDTO.getVendorId());
         }
 
         stockRepo.save(stockEntity);

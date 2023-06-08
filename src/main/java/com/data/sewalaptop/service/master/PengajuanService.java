@@ -31,9 +31,6 @@ public class PengajuanService {
     private NotaDinasService notaDinasService;
 
     @Autowired
-    private VendorService vendorService;
-
-    @Autowired
     private UserService userService;
 
     @Autowired
@@ -44,9 +41,6 @@ public class PengajuanService {
 
     @Autowired
     private NotaDinasRepository notaDinasRepo;
-
-    @Autowired
-    private VendorRepository vendorRepo;
 
     @Autowired
     private UserRepository userRepo;

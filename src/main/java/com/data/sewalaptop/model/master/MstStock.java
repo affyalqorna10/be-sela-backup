@@ -14,6 +14,9 @@ public class MstStock {
     @Column(name = "stock_id")
     private Long stockId;
 
+    @Column(name = "vendor_id")
+    private Long vendorId;
+
     @Column(name = "brand_id")
     private Long brandId;
 

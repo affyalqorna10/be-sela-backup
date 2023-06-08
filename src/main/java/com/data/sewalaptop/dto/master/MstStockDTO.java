@@ -5,6 +5,7 @@ import lombok.*;
 public class MstStockDTO {
     private Long stockId;
     private Long brandId;
+    private Long vendorId;
     private Integer stockQty;
     private String codeQr;
     private String status;
