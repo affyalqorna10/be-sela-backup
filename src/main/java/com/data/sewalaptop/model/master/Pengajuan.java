@@ -23,12 +23,6 @@ public class Pengajuan {
     @Column(name = "karyawan_id")
     private Long karyawanId;
 
-    @Column(name = "NIK_karyawan")
-    private String nikKaryawan;
-
-    @Column(name = "divisi_id")
-    private Long divisiId;
-
     @Column(name = "no_memo")
     private String noMemo;
 

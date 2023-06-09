@@ -47,10 +47,4 @@ public class VendorController {
         return vendorService.getAll();
     }
 
-    @GetMapping("/get_by_nama/{namaVendor}")
-    public ResponseEntity<?> getByNamaVendor(@RequestHeader Map<String,String> header, @PathVariable String namaVendor){
-
-        jwtService.filter(header);
-        return vendorService.getByNamaVendor(namaVendor);
-    }
 }

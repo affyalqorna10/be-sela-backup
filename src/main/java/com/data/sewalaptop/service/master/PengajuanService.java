@@ -1,15 +1,11 @@
 package com.data.sewalaptop.service.master;
 
 import com.data.sewalaptop.common.ResponseDTO;
-import com.data.sewalaptop.dto.master.MstVendorDTO;
 import com.data.sewalaptop.dto.master.PengajuanDTO;
-import com.data.sewalaptop.dto.transaction.MstNotaDinasDTO;
 import com.data.sewalaptop.model.master.*;
-import com.data.sewalaptop.model.transaction.MstNotaDinas;
 import com.data.sewalaptop.repository.master.*;
 import com.data.sewalaptop.repository.transaction.NotaDinasRepository;
 import com.data.sewalaptop.service.transaction.NotaDinasService;
-import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,27 +56,17 @@ public class PengajuanService {
 
     private ResponseEntity<?> createPengajuan(PengajuanDTO requestDTO) {
         ResponseDTO response = new ResponseDTO();
-        MstUser user = userRepo.findByUserId(requestDTO.getUserId());
-        MstKaryawan karyawan = karyawanRepo.findByNikKaryawan(requestDTO.getNikKaryawan());
-        MstKaryawan karyawan1 = karyawanRepo.findByKaryawanId(requestDTO.getKaryawanId());
-        MstDivisi divisi = divisiRespo.findByDivisiId(requestDTO.getDivisiId());
+        MstUser users = userRepo.findByUserId(requestDTO.getUserId());
+        MstKaryawan karyawans = karyawanRepo.findByKaryawanId(requestDTO.getKaryawanId());
 
-        if (user.getUserId() == null) {
+
+        if (users.getUserId() == null) {
             response.setCode("204");
             response.setMessage("User Id cannot be empty");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        if (karyawan.getNikKaryawan() == null) {
-            response.setCode("204");
-            response.setMessage("karyawam Id cannot be empty");
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        if (divisi.getDivisiId() == null){
-            response.setCode("204");
-            response.setMessage("Divisi Id cannot be empty");
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        if (karyawan1.getKaryawanId() == null){
+
+        if (karyawans.getKaryawanId() == null){
             response.setCode("204");
             response.setMessage("karyawam Id cannot be empty");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -92,8 +78,6 @@ public class PengajuanService {
         if (pengajuan == null) {
             pengajuanEntity.setUserId(requestDTO.getUserId());
             pengajuanEntity.setKaryawanId(requestDTO.getKaryawanId());
-            pengajuanEntity.setNikKaryawan(requestDTO.getNikKaryawan());
-            pengajuanEntity.setDivisiId(requestDTO.getDivisiId());
             pengajuanEntity.setNoMemo(requestDTO.getNoMemo());
             pengajuanEntity.setTglPengajuan(requestDTO.getTglPengajuan());
             pengajuanEntity.setStatus(requestDTO.getStatus());
@@ -134,18 +118,6 @@ public class PengajuanService {
             pengajuanEntity.setKaryawanId(pengajuan.getKaryawanId());
         }else {
             pengajuanEntity.setKaryawanId(requestDTO.getKaryawanId());
-        }
-
-        if (requestDTO.getDivisiId() == null){
-            pengajuanEntity.setDivisiId(pengajuan.getDivisiId());
-        }else {
-            pengajuanEntity.setDivisiId(requestDTO.getDivisiId());
-        }
-
-        if (requestDTO.getNikKaryawan() == null){
-            pengajuanEntity.setNikKaryawan(pengajuan.getNikKaryawan());
-        }else{
-            pengajuanEntity.setNikKaryawan(requestDTO.getNikKaryawan());
         }
 
         if (isNullStr(requestDTO.getNoMemo())){
@@ -195,13 +167,18 @@ public class PengajuanService {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> getByNoMemo(String noMemo){
+    public ResponseEntity<?> deletePengajuan(Long pengajuanId){
         ResponseDTO response = new ResponseDTO();
-        Pengajuan pengajuan = pengajuanRepo.findByNoMemo(noMemo);
-
+        Pengajuan pengajuan = pengajuanRepo.findByPengajuanId(pengajuanId);
+        if (pengajuan == null){
+            response.setCode("204");
+            response.setMessage("Pengajuan ID not found");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        pengajuanRepo.delete(pengajuan);
         response.setCode("200");
-        response.setData(pengajuan);
-        response.setMessage("Get Data by Memo successfully");
+        response.setData(null);
+        response.setMessage("Pengajuan Id successfully deleted");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

@@ -19,9 +19,13 @@ public class PengajuanDetail {
     @Column(name = "pengajuan_id")
     private Long pengajuandId;
 
+    @Column(name = "brand_id")
+    private Long brandId;
+
+    @Column(name = "spek_id")
+    private Long spekId;
+
     @Column(name = "stock_id")
     private Long stockId;
 
-    @Column(name = "keterangan")
-    private String keterangan;
 }

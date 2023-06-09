@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/v1/login")
+@RequestMapping("/api/v1/user")
 public class LoginController {
 
     @Autowired
     private LoginService loginService;
 
-    @PostMapping("/save")
+    @PostMapping("/login")
     public ResponseEntity<?> savelogin(@RequestBody MstLoginDTO request){
         return loginService.login(request);
     }
