@@ -38,7 +38,7 @@ public class StockService {
         MstStock stock = stockRepo.findByStockId(stockId);
         if (stock == null){
             response.setCode("204");
-            response.setMessage("Brand ID not found");
+            response.setMessage("Device ID not found");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -65,9 +65,9 @@ public class StockService {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> getByBrandId(Long brandId){
+    public ResponseEntity<?> getByDeviceId(Long deviceId){
         ResponseDTO response = new ResponseDTO();
-        List<MstStock> stockList = stockRepo.findAllByBrandId(brandId);
+        List<MstStock> stockList = stockRepo.findAllByDeviceId(deviceId);
         if (stockList == null){
             response.setCode("204");
             response.setMessage("Brand ID not found");
@@ -97,20 +97,13 @@ public class StockService {
 
     private ResponseEntity<?> createStock(MstStockDTO requestDTO) {
         ResponseDTO response = new ResponseDTO();
-        List<MstStock> stockList = stockRepo.findAllByBrandId(requestDTO.getBrandId());
-        MstVendor vendor = vendorRepo.findByVendorId(requestDTO.getVendorId());
+        List<MstStock> stockList = stockRepo.findAllByDeviceId(requestDTO.getDeviceId());
         if (stockList.size() > 0) {
             response.setCode("409");
             response.setMessage("data already exists");
             return new ResponseEntity<>(response, HttpStatus.CONFLICT);
         }
-        if (requestDTO.getBrandId() == null) {
-            response.setCode("204");
-            response.setMessage("Brand Id cannot be empty");
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        if (vendor.getVendorId() == null){
+        if (requestDTO.getDeviceId() == null) {
             response.setCode("204");
             response.setMessage("Brand Id cannot be empty");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -125,8 +118,7 @@ public class StockService {
         for (int i = 0; i < requestDTO.getStockQty(); i++) {
             MstStock stockEntity = new MstStock();
 
-            stockEntity.setBrandId(requestDTO.getBrandId());
-            stockEntity.setVendorId(requestDTO.getVendorId());
+            stockEntity.setDeviceId(requestDTO.getDeviceId());
             stockEntity.setCodeQr(UUID.randomUUID().toString());
             stockEntity.setStatus("ACTIVE");
 
@@ -166,16 +158,10 @@ public class StockService {
             stockEntity.setStatus(stockList.getStatus());
         }
 
-        if (requestDTO.getBrandId() == null){
-            stockEntity.setStockId(stockList.getBrandId());
+        if (requestDTO.getDeviceId() == null){
+            stockEntity.setStockId(stockList.getDeviceId());
         } else {
-            stockEntity.setStockId(requestDTO.getBrandId());
-        }
-
-        if (requestDTO.getVendorId() == null){
-            stockEntity.setStockId(stockList.getVendorId());
-        }else{
-            stockEntity.setStockId(requestDTO.getVendorId());
+            stockEntity.setStockId(requestDTO.getDeviceId());
         }
 
         stockRepo.save(stockEntity);

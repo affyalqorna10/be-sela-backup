@@ -4,8 +4,12 @@ import lombok.*;
 
 @Getter @Setter
 public class TrxDetailStockDTO {
-    private Long brandId;
-    private String brandName;
-    private String spek;
+    private Long deviceId;
+    private String deviceName;
+    private Long spekId;
+    private String storage;
+    private String processor;
+    private String ram;
+    private String graphicCard;
     private Integer stock;
 }

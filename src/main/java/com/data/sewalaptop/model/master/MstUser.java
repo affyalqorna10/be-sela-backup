@@ -17,32 +17,14 @@ public class MstUser {
     @Column(name = "ug_id")
     private Long ugId;
 
-    @Column(name = "divisi_id")
-    private Long divisiId;
-
-    @Column(name = "NIK_user")
-    private String nikUser;
-
-    @Column(name = "nama_depan")
-    private String namaDepan;
-
-    @Column(name = "nama_belakang")
-    private String namaBelakang;
+    @Column(name = "karyawan_id")
+    private Long karyawanId;
 
     @Column(name = "user_email")
     private String userEmail;
 
     @Column(name = "password")
     private String password;
-
-    @Column(name = "telp_user")
-    private String telpUser;
-
-    @Column(name = "alamat_user")
-    private String alamatUser;
-
-    @Column(name = "status")
-    private String status;
 
     @Column(name = "token")
     private String token;

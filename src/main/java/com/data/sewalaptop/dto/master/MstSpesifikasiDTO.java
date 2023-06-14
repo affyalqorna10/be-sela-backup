@@ -4,6 +4,9 @@ import lombok.*;
 @Getter @Setter
 public class MstSpesifikasiDTO {
     private Long spekId;
-    private Long brandId;
-    private String speks;
+    private Long deviceId;
+    private String storage;
+    private String processor;
+    private String ram;
+    private String graphicCard;
 }

@@ -40,15 +40,7 @@ public class UserService {
     private KaryawanService karyawanService;
 
     @Autowired
-    private DivisiService divisiService;
-
-    @Autowired
-    private DivisiRespository divisiRepo;
-
-    @Autowired
     private OAuthRepository oauthRepo;
-
-
 
     public ResponseEntity<?> saveUser(MstUserDTO requestDTO){
 
@@ -87,61 +79,26 @@ public class UserService {
         MstUser userEntity = new MstUser();
         MstUser user = userRepo.findByUserId(requestDTO.getUserId());
         if (user == null) {
-            if (isNullStr(requestDTO.getNikUser())) {
-                if (isNullStr(requestDTO.getNamaDepan())) {
-                    if (isNullStr(requestDTO.getNamaBelakang())) {
-                        if (isNullStr(requestDTO.getUserEmail())) {
-                            if (isNullStr(requestDTO.getPassword())) {
-                                if (isNullStr(requestDTO.getAlamatUser())) {
-                                    if (isNullStr(requestDTO.getTelpUser())) {
-                                        if (isNullStr(requestDTO.getStatus())) {
-                                            userEntity.setUgId(requestDTO.getUgId());
-                                            userEntity.setDivisiId(requestDTO.getDivisiId());
-                                            userEntity.setNikUser(requestDTO.getNikUser());
-                                            userEntity.setNamaDepan(requestDTO.getNamaDepan());
-                                            userEntity.setNamaBelakang(requestDTO.getNamaBelakang());
-                                            userEntity.setUserEmail(requestDTO.getUserEmail());
-                                            userEntity.setPassword(passEncript(requestDTO.getPassword()));
-                                            userEntity.setAlamatUser(requestDTO.getAlamatUser());
-                                            userEntity.setTelpUser(requestDTO.getTelpUser());
+            if (isNullStr(requestDTO.getUserEmail())) {
+                if (isNullStr(requestDTO.getPassword())) {
+                    userEntity.setUgId(requestDTO.getUgId());
+                    userEntity.setKaryawanId(requestDTO.getKaryawanId());
+                    userEntity.setUserEmail(requestDTO.getUserEmail());
+                    userEntity.setPassword(passEncript(requestDTO.getPassword()));
 
-                                            userRepo.save(userEntity);
+                    userRepo.save(userEntity);
 
-                                            response.setCode("201");
-                                            response.setData(null);
-                                            response.setMessage("User has been saved successfully");
-                                            return new ResponseEntity<>(response, HttpStatus.CREATED);
-                                        }
-                                        response.setCode("204");
-                                        response.setMessage("Status cannot be empty");
-                                        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-                                    }
-                                    response.setCode("204");
-                                    response.setMessage("Telp User cannot be empty");
-                                    return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-                                }
-                                response.setCode("204");
-                                response.setMessage("Alamat User cannot be empty");
-                                return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-                            }
-                            response.setCode("204");
-                            response.setMessage("Password cannot be empty");
-                            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-                        }
-                        response.setCode("204");
-                        response.setMessage("User Email cannot be empty");
-                        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+                    response.setCode("201");
+                    response.setData(null);
+                    response.setMessage("User has been saved successfully");
+                    return new ResponseEntity<>(response, HttpStatus.CREATED);
                     }
-                    response.setCode("204");
-                    response.setMessage("Nama Belakang cannot be empty");
-                    return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-                }
                 response.setCode("204");
-                response.setMessage("Nama Depan cannot be empty");
+                response.setMessage("Password cannot be empty");
                 return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
             }
             response.setCode("204");
-            response.setMessage("Nik User cannot be empty");
+            response.setMessage("User Email cannot be empty");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         response.setCode("409");

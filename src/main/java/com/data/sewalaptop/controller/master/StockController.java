@@ -25,10 +25,10 @@ public class StockController {
         return stockService.deleteStock(idStock);
     }
 
-    @GetMapping("/get_by_brandId/{brandId}")
-    public ResponseEntity<?> getAllByBrandId(@PathVariable Long brandId){
+    @GetMapping("/get_by_brandId/{deviceId}")
+    public ResponseEntity<?> getAllByDeviceId(@PathVariable Long deviceId){
 
-        return stockService.getByBrandId(brandId);
+        return stockService.getByDeviceId(deviceId);
     }
 
     @GetMapping("/get_by/{stockId}")

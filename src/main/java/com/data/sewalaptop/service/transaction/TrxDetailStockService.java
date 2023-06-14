@@ -14,15 +14,13 @@ import org.springframework.stereotype.*;
 
 import java.util.*;
 
-import static com.data.sewalaptop.common.Checker.*;
-
 @Service
 public class TrxDetailStockService {
     @Autowired
     private TrxDetailStockRepository tdsRepo;
 
     @Autowired
-    private BrandService brandService;
+    private DeviceService deviceService;
 
     @Autowired
     private SpesificationService spekService;
@@ -31,7 +29,7 @@ public class TrxDetailStockService {
     private StockService stockService;
 
     @Autowired
-    private BrandRepository brandRepo;
+    private DeviceRepository deviceRepo;
 
     @Autowired
     private SpesificationRepository spekRepo;
@@ -40,7 +38,7 @@ public class TrxDetailStockService {
     private StockRepository stockRepo;
 
     public ResponseEntity<?> saveDetailStock(TrxDetailStockDTO requestDTO){
-        if (requestDTO.getBrandId() == null){
+        if (requestDTO.getDeviceId() == null){
             return createDetailStock(requestDTO);
         }
         return UpdateDetailStock(requestDTO);
@@ -48,30 +46,33 @@ public class TrxDetailStockService {
 
     private ResponseEntity<?> createDetailStock(TrxDetailStockDTO requestDTO) {
         int status =0;
-        // Brand save
-        MstBrandsDTO brandDTO = new MstBrandsDTO();
-        brandDTO.setBrandName(requestDTO.getBrandName());
-        status = brandService.saveBrand(brandDTO).getStatusCodeValue();
+        // Device save
+        MstDevicesDTO devicesDTO = new MstDevicesDTO();
+        devicesDTO.setDeviceName(requestDTO.getDeviceName());
+        status = deviceService.saveDevice(devicesDTO).getStatusCodeValue();
 
         // Spesifikasi save
-        MstBrands brand = brandRepo.findByBrandName(requestDTO.getBrandName());
+        MstDevices device = deviceRepo.findByDeviceName(requestDTO.getDeviceName());
         MstSpesifikasiDTO spekDTO = new MstSpesifikasiDTO();
-        spekDTO.setBrandId(brand.getBrandId());
-        spekDTO.setSpeks(requestDTO.getSpek());
+        spekDTO.setDeviceId(device.getDeviceId());
+        spekDTO.setStorage(requestDTO.getStorage());
+        spekDTO.setProcessor(requestDTO.getProcessor());
+        spekDTO.setRam(requestDTO.getRam());
+        spekDTO.setGraphicCard(requestDTO.getGraphicCard());
         status = spekService.saveSpesification(spekDTO).getStatusCodeValue();
 
         // Stock Save
-        MstSpesifikasi spek = spekRepo.findByBrandId(brand.getBrandId());
+        MstSpesifikasi spek = spekRepo.findByDeviceId(requestDTO.getDeviceId());
         MstStockDTO stockDTO = new MstStockDTO();
         stockDTO.setStockQty(requestDTO.getStock());
-        stockDTO.setBrandId(requestDTO.getBrandId());
+        stockDTO.setDeviceId(requestDTO.getDeviceId());
         status = stockService.saveStock(stockDTO).getStatusCodeValue();
 
         ResponseDTO response = new ResponseDTO();
         if (status == 201){
             response.setCode("201");
             response.setData(null);
-            response.setMessage("Brand has been saved successfully");
+            response.setMessage("Detail Stock has been saved successfully");
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         }
         response.setCode("409");
@@ -82,32 +83,36 @@ public class TrxDetailStockService {
 
     private ResponseEntity<?> UpdateDetailStock(TrxDetailStockDTO requestDTO){
         int status =0;
-        // Brand save
-        MstBrandsDTO brandDTO = new MstBrandsDTO();
-        brandDTO.setBrandId(requestDTO.getBrandId());
-        brandDTO.setBrandName(requestDTO.getBrandName());
-        status = brandService.saveBrand(brandDTO).getStatusCodeValue();
+        // Device save
+        MstDevicesDTO devicesDTO = new MstDevicesDTO();
+        devicesDTO.setDeviceId(requestDTO.getDeviceId());
+        devicesDTO.setDeviceName(requestDTO.getDeviceName());
+
+        status = deviceService.saveDevice(devicesDTO).getStatusCodeValue();
 
         // Spesifikasi save
-        MstSpesifikasi spek = spekRepo.findByBrandId(requestDTO.getBrandId());
+        MstSpesifikasi spek = spekRepo.findByDeviceId(requestDTO.getDeviceId());
         MstSpesifikasiDTO spekDTO = new MstSpesifikasiDTO();
         spekDTO.setSpekId(spek.getSpekId());
-        spekDTO.setBrandId(requestDTO.getBrandId());
-        spekDTO.setSpeks(requestDTO.getSpek());
+        spekDTO.setDeviceId(requestDTO.getDeviceId());
+        spekDTO.setStorage(requestDTO.getStorage());
+        spekDTO.setProcessor(requestDTO.getProcessor());
+        spekDTO.setRam(requestDTO.getRam());
+        spekDTO.setGraphicCard(requestDTO.getGraphicCard());
         status = spekService.saveSpesification(spekDTO).getStatusCodeValue();
 
         // Stock Save
-        MstStock stock = stockRepo.findByBrandId(requestDTO.getBrandId());
+        MstStock stock = stockRepo.findByDeviceId(requestDTO.getDeviceId());
         MstStockDTO stockDTO = new MstStockDTO();
         stockDTO.setStockQty(Math.toIntExact(requestDTO.getStock()));
-        stockDTO.setBrandId(requestDTO.getBrandId());
+        stockDTO.setDeviceId(requestDTO.getDeviceId());
         status = stockService.saveStock(stockDTO).getStatusCodeValue();
 
         ResponseDTO response = new ResponseDTO();
         if (status == 201){
             response.setCode("201");
             response.setData(null);
-            response.setMessage("Brand has been saved successfully");
+            response.setMessage("Detail Stock has been saved successfully");
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         }
         response.setCode("409");
@@ -116,9 +121,9 @@ public class TrxDetailStockService {
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
 
-    public ResponseEntity<?> getByBrandId(Long brandId){
+    public ResponseEntity<?> getByDeviceId(Long deviceId){
         ResponseDTO response = new ResponseDTO();
-        TrxDetailStock detailStock = tdsRepo.findByBrandId(brandId);
+        TrxDetailStock detailStock = tdsRepo.findByDeviceId(deviceId);
 
         response.setCode("200");
         response.setData(detailStock);

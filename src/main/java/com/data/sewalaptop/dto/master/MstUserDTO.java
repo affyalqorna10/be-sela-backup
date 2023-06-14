@@ -5,13 +5,7 @@ import lombok.*;
 public class MstUserDTO {
     private Long userId;
     private Long ugId;
-    private Long divisiId;
-    private String nikUser;
-    private String namaDepan;
-    private String namaBelakang;
+    private Long karyawanId;
     private String userEmail;
     private String password;
-    private String telpUser;
-    private String alamatUser;
-    private String status;
 }

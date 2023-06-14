@@ -1,10 +1,6 @@
 package com.data.sewalaptop.repository.transaction;
 
-import com.data.sewalaptop.model.master.MstBrands;
-import com.data.sewalaptop.model.master.MstKaryawan;
-import com.data.sewalaptop.model.master.MstVendor;
 import com.data.sewalaptop.model.transaction.MstNotaDinas;
-import com.data.sewalaptop.model.transaction.TrxDetailStock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;

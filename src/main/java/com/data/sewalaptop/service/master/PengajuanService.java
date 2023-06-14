@@ -4,14 +4,11 @@ import com.data.sewalaptop.common.ResponseDTO;
 import com.data.sewalaptop.dto.master.PengajuanDTO;
 import com.data.sewalaptop.model.master.*;
 import com.data.sewalaptop.repository.master.*;
-import com.data.sewalaptop.repository.transaction.NotaDinasRepository;
-import com.data.sewalaptop.service.transaction.NotaDinasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 import static com.data.sewalaptop.common.Checker.isNullStr;
@@ -24,28 +21,16 @@ public class PengajuanService {
     private PengajuanRepository pengajuanRepo;
 
     @Autowired
-    private NotaDinasService notaDinasService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private DivisiService divisiService;
+    private SpesificationService spesificationService;
 
     @Autowired
     private KaryawanService karyawanService;
 
     @Autowired
-    private NotaDinasRepository notaDinasRepo;
-
-    @Autowired
-    private UserRepository userRepo;
-
-    @Autowired
     private KaryawanRepository karyawanRepo;
 
     @Autowired
-    private DivisiRespository divisiRespo;
+    private SpesificationRepository spesificationRepo;
 
     public ResponseEntity<?> savePengajuan(PengajuanDTO requestDTO){
         if (requestDTO.getPengajuanId() == null) {
@@ -56,13 +41,13 @@ public class PengajuanService {
 
     private ResponseEntity<?> createPengajuan(PengajuanDTO requestDTO) {
         ResponseDTO response = new ResponseDTO();
-        MstUser users = userRepo.findByUserId(requestDTO.getUserId());
+        MstSpesifikasi spesifikasi = spesificationRepo.findBySpekId(requestDTO.getSpekId());
         MstKaryawan karyawans = karyawanRepo.findByKaryawanId(requestDTO.getKaryawanId());
 
 
-        if (users.getUserId() == null) {
+        if (spesifikasi.getSpekId() == null) {
             response.setCode("204");
-            response.setMessage("User Id cannot be empty");
+            response.setMessage("Spesifikasi Id cannot be empty");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -76,10 +61,11 @@ public class PengajuanService {
         Pengajuan pengajuan = pengajuanRepo.findByPengajuanId(requestDTO.getPengajuanId());
 
         if (pengajuan == null) {
-            pengajuanEntity.setUserId(requestDTO.getUserId());
+            pengajuanEntity.setSpekId(requestDTO.getSpekId());
             pengajuanEntity.setKaryawanId(requestDTO.getKaryawanId());
             pengajuanEntity.setNoMemo(requestDTO.getNoMemo());
             pengajuanEntity.setTglPengajuan(requestDTO.getTglPengajuan());
+            pengajuanEntity.setTglPenerima(requestDTO.getTglPenerima());
             pengajuanEntity.setStatus(requestDTO.getStatus());
 
             pengajuanRepo.save(pengajuanEntity);
@@ -108,10 +94,10 @@ public class PengajuanService {
             pengajuanEntity.setPengajuanId(requestDTO.getPengajuanId());
         }
 
-        if (requestDTO.getUserId() == null){
-            pengajuanEntity.setUserId(pengajuan.getUserId());
+        if (requestDTO.getSpekId() == null){
+            pengajuanEntity.setSpekId(pengajuan.getSpekId());
         }else{
-            pengajuanEntity.setUserId(requestDTO.getUserId());
+            pengajuanEntity.setSpekId(requestDTO.getSpekId());
         }
 
         if (requestDTO.getKaryawanId() == null){
@@ -132,6 +118,11 @@ public class PengajuanService {
             pengajuanEntity.setTglPengajuan(requestDTO.getTglPengajuan());
         }
 
+        if (isNull(requestDTO.getTglPenerima())){
+            pengajuanEntity.setTglPenerima(requestDTO.getTglPenerima());
+        }else{
+            pengajuanEntity.setTglPenerima(requestDTO.getTglPenerima());
+        }
 
         if (isNullStr(requestDTO.getStatus())){
             pengajuanEntity.setStatus(requestDTO.getStatus());

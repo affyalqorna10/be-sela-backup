@@ -1,6 +1,5 @@
 package com.data.sewalaptop.controller.transaction;
 
-import com.data.sewalaptop.dto.master.MstBrandsDTO;
 import com.data.sewalaptop.dto.transaction.MstNotaDinasDTO;
 import com.data.sewalaptop.service.transaction.NotaDinasService;
 import org.springframework.beans.factory.annotation.Autowired;

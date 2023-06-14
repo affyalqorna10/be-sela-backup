@@ -17,8 +17,8 @@ public class Pengajuan {
     @Column(name = "pengajuan_id")
     private Long pengajuanId;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @Column(name = "spek_id")
+    private Long spekId;
 
     @Column(name = "karyawan_id")
     private Long karyawanId;
@@ -28,6 +28,9 @@ public class Pengajuan {
 
     @Column(name = "tgl_pengajuan")
     private Date tglPengajuan;
+
+    @Column(name = "tgl_penerima")
+    private Date tglPenerima;
 
     @Column(name = "status")
     private String status;

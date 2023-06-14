@@ -15,15 +15,15 @@ public class TrxDetailStockController {
     private TrxDetailStockService tdsService;
 
     @PostMapping("/save")
-    public ResponseEntity<?> getByBrandId(@RequestBody TrxDetailStockDTO requestDTO){
+    public ResponseEntity<?> saveDetailStock(@RequestBody TrxDetailStockDTO requestDTO){
 
         return tdsService.saveDetailStock(requestDTO);
     }
 
-    @GetMapping("/get_by_brand_id/{idBrand}")
-    public ResponseEntity<?> getByBrandId(@PathVariable Long idBrand){
+    @GetMapping("/get_by_device_id/{deviceId}")
+    public ResponseEntity<?> getByDeviceId(@PathVariable Long deviceId){
 
-        return tdsService.getByBrandId(idBrand);
+        return tdsService.getByDeviceId(deviceId);
     }
 
     @GetMapping("/get_all")

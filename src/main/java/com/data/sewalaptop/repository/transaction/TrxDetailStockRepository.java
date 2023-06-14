@@ -11,8 +11,8 @@ import java.util.*;
 @Repository
 public interface TrxDetailStockRepository extends PagingAndSortingRepository<TrxDetailStock, Long>{
 
-    @Query(value = "select tds.* from trx_detail_stock tds where tds.brand_id = :brandId",nativeQuery = true)
-    TrxDetailStock findByBrandId(@Param("brandId") Long brandId);
+    @Query(value = "select tds.* from trx_detail_stock tds where tds.device_id = :deviceId",nativeQuery = true)
+    TrxDetailStock findByDeviceId(@Param("deviceId") Long deviceId);
 
     @Query(value = "select tds.* from trx_detail_stock tds order by tds.brand_id asc ",nativeQuery = true)
     List<TrxDetailStock> findAllNoPageble();

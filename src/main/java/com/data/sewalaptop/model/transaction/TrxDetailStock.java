@@ -11,15 +11,24 @@ import java.util.List;
 @Table(name = "trx_detail_stock", schema = "public")
 public class TrxDetailStock {
     @Id
-    @Column(name = "brand_id")
-    private Long brandId;
+    @Column(name = "device_id")
+    private Long deviceId;
 
-    @Column(name = "brand_name")
-    private String brandName;
+    @Column(name = "device_name")
+    private String deviceName;
 
-    @Column(name = "spek")
-    private String spek;
+    @Column(name = "storage")
+    private String storage;
+
+    @Column(name = "processor")
+    private String processor;
+
+    @Column(name = "ram")
+    private String ram;
+
+    @Column(name = "graphic_card")
+    private String graphicCard;
 
     @Column(name = "stock")
-    private Long stock;
+    private Integer stock;
 }

@@ -10,9 +10,10 @@ import java.util.Date;
 
 public class PengajuanDTO {
     private Long pengajuanId;
-    private Long userId;
+    private Long spekId;
     private Long karyawanId;
     private String noMemo;
     private Date tglPengajuan;
+    private Date tglPenerima;
     private String status;
 }

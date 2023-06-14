@@ -13,11 +13,11 @@ public interface SpesificationRepository extends PagingAndSortingRepository<MstS
     @Query(value = "select ms.* from mst_spesifikasi ms where ms.spek_id= :spekId order by ms.spek_id asc limit 1",nativeQuery = true)
     MstSpesifikasi findBySpekId(@Param("spekId") Long spekId);
 
-    @Query(value = "select ms.* from mst_spesifikasi ms where ms.brand_id= :brandId order by ms.spek_id asc limit 1",nativeQuery = true)
-    MstSpesifikasi findByBrandId(@Param("brandId") Long brandId);
+    @Query(value = "select ms.* from mst_spesifikasi ms where ms.device_id= :deviceId order by ms.spek_id asc limit 1",nativeQuery = true)
+    MstSpesifikasi findByDeviceId(@Param("deviceId") Long deviceId);
 
-    @Query(value = "select ms.* from mst_spesifikasi ms where ms.brand_id= :brandId",nativeQuery = true)
-    List<MstSpesifikasi> findAllByBrandId(@Param("brandId") Long brandId);
+    @Query(value = "select ms.* from mst_spesifikasi ms where ms.device_id= :deviceId",nativeQuery = true)
+    List<MstSpesifikasi> findAllByDeviceId(@Param("deviceId") Long deviceId);
 
     @Query(value = "select ms.* from mst_spesifikasi ms order by ms.spek_id asc ",nativeQuery = true)
     List<MstSpesifikasi> findAll();

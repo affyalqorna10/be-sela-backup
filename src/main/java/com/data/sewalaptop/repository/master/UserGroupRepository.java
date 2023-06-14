@@ -1,8 +1,5 @@
 package com.data.sewalaptop.repository.master;
 
-import com.data.sewalaptop.model.master.MstBrands;
-import com.data.sewalaptop.model.master.MstDivisi;
-import com.data.sewalaptop.model.master.MstSpesifikasi;
 import com.data.sewalaptop.model.master.MstUserGroup;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
