@@ -19,6 +19,7 @@ public interface SpesificationRepository extends PagingAndSortingRepository<MstS
     @Query(value = "select ms.* from mst_spesifikasi ms where ms.device_id= :deviceId",nativeQuery = true)
     List<MstSpesifikasi> findAllByDeviceId(@Param("deviceId") Long deviceId);
 
-    @Query(value = "select ms.* from mst_spesifikasi ms order by ms.spek_id asc ",nativeQuery = true)
+    @Query(value = "SELECT * FROM mst_spesifikasi AS spek LEFT JOIN mst_device AS device ON spek.device_id = device.device_id",nativeQuery = true)
     List<MstSpesifikasi> findAll();
+
 }

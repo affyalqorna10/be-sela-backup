@@ -32,7 +32,7 @@ public class StockController {
         return stockService.deleteStock(idStock);
     }
 
-    @GetMapping("/get_by_brandId/{deviceId}")
+    @GetMapping("/get_by_deviceId/{deviceId}")
     public ResponseEntity<?> getAllByDeviceId(@RequestHeader Map<String,String> header, @PathVariable Long deviceId){
 
         jwtService.filter(header);

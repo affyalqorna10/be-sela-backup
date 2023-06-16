@@ -17,6 +17,9 @@ public class MstSpesifikasi {
     @Column(name = "device_id")
     private Long deviceId;
 
+    @Column(name = "device_name")
+    private String deviceName;
+
     @Column(name = "storage")
     private String storage;
 
