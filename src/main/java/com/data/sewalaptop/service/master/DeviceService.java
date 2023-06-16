@@ -30,7 +30,7 @@ public class DeviceService {
         MstDevices devices = deviceRepo.findByDeviceId(deviceId);
         if (devices == null){
             response.setCode("204");
-            response.setMessage("Brand ID not found");
+            response.setMessage("Device ID not found");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -38,7 +38,7 @@ public class DeviceService {
 
         response.setCode("200");
         response.setData(null);
-        response.setMessage("Brand id successfully deleted");
+        response.setMessage("Device id successfully deleted");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -48,7 +48,7 @@ public class DeviceService {
 
         response.setCode("200");
         response.setData(brands);
-        response.setMessage("Get Data By Brand Id successfully");
+        response.setMessage("Get Data By Device Id successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -102,16 +102,16 @@ public class DeviceService {
 
                 response.setCode("201");
                 response.setData(null);
-                response.setMessage("Brand has been saved successfully");
+                response.setMessage("Device has been saved successfully");
                 return new ResponseEntity<>(response, HttpStatus.CREATED);
             }
             response.setCode("204");
-            response.setMessage("Brand name cannot be empty");
+            response.setMessage("Device name cannot be empty");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         response.setCode("409");
         response.setData(null);
-        response.setMessage("Brand already exists");
+        response.setMessage("Device already exists");
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
 }

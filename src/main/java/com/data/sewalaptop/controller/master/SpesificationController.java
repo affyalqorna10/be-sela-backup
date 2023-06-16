@@ -24,7 +24,7 @@ public class SpesificationController {
         return spekService.saveSpesification(request);
     }
 
-    @PostMapping("/delete/{idSpek}")
+    @DeleteMapping("/delete/{idSpek}")
     public ResponseEntity<?> deleteSpek(@RequestHeader Map<String,String> header, @PathVariable Long idSpek){
 
         jwtService.filter(header);

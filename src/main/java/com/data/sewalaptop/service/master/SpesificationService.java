@@ -36,7 +36,7 @@ public class SpesificationService {
         MstSpesifikasi spek = spekRepo.findBySpekId(spekId);
         if (spek == null){
             response.setCode("204");
-            response.setMessage("Brand ID not found");
+            response.setMessage("Spesification ID not found");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -44,7 +44,7 @@ public class SpesificationService {
 
         response.setCode("200");
         response.setData(null);
-        response.setMessage("Brand id successfully deleted");
+        response.setMessage("Spesification id successfully deleted");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -54,7 +54,7 @@ public class SpesificationService {
 
         response.setCode("200");
         response.setData(spek);
-        response.setMessage("Get Data by brand id successfully");
+        response.setMessage("Get Data by Device id successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

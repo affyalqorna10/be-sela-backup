@@ -44,7 +44,6 @@ public class PengajuanService {
         MstSpesifikasi spesifikasi = spesificationRepo.findBySpekId(requestDTO.getSpekId());
         MstKaryawan karyawans = karyawanRepo.findByKaryawanId(requestDTO.getKaryawanId());
 
-
         if (spesifikasi.getSpekId() == null) {
             response.setCode("204");
             response.setMessage("Spesifikasi Id cannot be empty");

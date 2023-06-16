@@ -13,6 +13,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.*;
 
 import static com.data.sewalaptop.common.Checker.*;
+import static java.util.Objects.isNull;
 
 @Service
 public class StockService {
@@ -20,10 +21,16 @@ public class StockService {
     private StockRepository stockRepo;
 
     @Autowired
-    private VendorRepository vendorRepo;
+    private DeviceRepository deviceRepo;
 
     @Autowired
-    private VendorService vendorService;
+    private SpesificationRepository spesificationRepo;
+
+    @Autowired
+    private SpesificationService spesificationService;
+
+    @Autowired
+    private DeviceService deviceService;
 
     public ResponseEntity<?> saveStock(MstStockDTO requestDTO){
         if (requestDTO.getStockId() == null){
@@ -38,7 +45,7 @@ public class StockService {
         MstStock stock = stockRepo.findByStockId(stockId);
         if (stock == null){
             response.setCode("204");
-            response.setMessage("Device ID not found");
+            response.setMessage("Stock ID not found");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -46,7 +53,7 @@ public class StockService {
 
         response.setCode("200");
         response.setData(null);
-        response.setMessage("Brand id successfully deleted");
+        response.setMessage("Stock id successfully deleted");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -55,7 +62,7 @@ public class StockService {
         MstStock stockList = stockRepo.findByStockId(stockId);
         if (stockList == null){
             response.setCode("204");
-            response.setMessage("Brand ID not found");
+            response.setMessage("Stock ID not found");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -70,7 +77,7 @@ public class StockService {
         List<MstStock> stockList = stockRepo.findAllByDeviceId(deviceId);
         if (stockList == null){
             response.setCode("204");
-            response.setMessage("Brand ID not found");
+            response.setMessage("Device ID not found");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -85,7 +92,7 @@ public class StockService {
         List<MstStock> stockList = stockRepo.findAll();
         if (stockList == null){
             response.setCode("204");
-            response.setMessage("Brand ID not found");
+            response.setMessage("Device ID not found");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -97,37 +104,33 @@ public class StockService {
 
     private ResponseEntity<?> createStock(MstStockDTO requestDTO) {
         ResponseDTO response = new ResponseDTO();
-        List<MstStock> stockList = stockRepo.findAllByDeviceId(requestDTO.getDeviceId());
-        if (stockList.size() > 0) {
-            response.setCode("409");
-            response.setMessage("data already exists");
-            return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+        MstDevices devices = deviceRepo.findByDeviceId(requestDTO.getDeviceId());
+        MstSpesifikasi spesifikasi = spesificationRepo.findBySpekId(requestDTO.getSpekId());
+
+        if (devices.getDeviceId() == null){
+          response.setCode("204");
+          response.setMessage("Device Id cannot be empty");
+          return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        if (requestDTO.getDeviceId() == null) {
+
+        if (spesifikasi.getSpekId() == null){
             response.setCode("204");
-            response.setMessage("Brand Id cannot be empty");
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setMessage("Spesifikasi Id Cannot be empty");
         }
 
-        if (requestDTO.getStockQty() == null) {
-            response.setCode("204");
-            response.setMessage("Stock Qty cannot be empty");
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        MstStock stockEntity = new MstStock();
+        MstStock stock = stockRepo.findByStockId(requestDTO.getStockId());
 
-        for (int i = 0; i < requestDTO.getStockQty(); i++) {
-            MstStock stockEntity = new MstStock();
-
+        if (stock == null){
             stockEntity.setDeviceId(requestDTO.getDeviceId());
-            stockEntity.setCodeQr(UUID.randomUUID().toString());
-            stockEntity.setStatus("ACTIVE");
+            stockEntity.setSpekId(requestDTO.getSpekId());
+            stockEntity.setQty(requestDTO.getQty());
 
             stockRepo.save(stockEntity);
         }
-
         response.setCode("201");
         response.setData(null);
-        response.setMessage("Brand has been saved successfully");
+        response.setMessage("Stock has been saved successfully");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -146,29 +149,29 @@ public class StockService {
             stockEntity.setStockId(requestDTO.getStockId());
         }
 
-        if (isNullStr(requestDTO.getCodeQr())){
-            stockEntity.setCodeQr(requestDTO.getCodeQr());
-        } else {
-            stockEntity.setCodeQr(UUID.randomUUID().toString());
-        }
-
-        if (isNullStr(requestDTO.getStatus())){
-            stockEntity.setStatus(requestDTO.getStatus());
-        } else {
-            stockEntity.setStatus(stockList.getStatus());
-        }
-
         if (requestDTO.getDeviceId() == null){
             stockEntity.setStockId(stockList.getDeviceId());
         } else {
             stockEntity.setStockId(requestDTO.getDeviceId());
         }
 
+        if (requestDTO.getSpekId() == null){
+            stockEntity.setSpekId(stockList.getSpekId());
+        }else{
+            stockEntity.setSpekId(stockList.getSpekId());
+        }
+
+        if (isNull(requestDTO.getQty())){
+            stockEntity.setQty(stockList.getQty());
+        }else{
+            stockEntity.setQty(stockList.getQty());
+        }
+
         stockRepo.save(stockEntity);
 
         response.setCode("201");
         response.setData(null);
-        response.setMessage("Brand has been saved successfully");
+        response.setMessage("Stock has been saved successfully");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

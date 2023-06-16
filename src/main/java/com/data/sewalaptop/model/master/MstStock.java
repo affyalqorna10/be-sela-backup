@@ -17,9 +17,9 @@ public class MstStock {
     @Column(name = "device_id")
     private Long deviceId;
 
-    @Column(name = "code_qr")
-    private String codeQr;
+    @Column(name = "spek_id")
+    private Long spekId;
 
-    @Column(name = "status")
-    private String status;
+    @Column(name = "qty")
+    private Integer qty;
 }

@@ -6,7 +6,6 @@ import lombok.*;
 public class TrxDetailStockDTO {
     private Long deviceId;
     private String deviceName;
-    private Long spekId;
     private String storage;
     private String processor;
     private String ram;

@@ -64,7 +64,7 @@ public class TrxDetailStockService {
         // Stock Save
         MstSpesifikasi spek = spekRepo.findByDeviceId(requestDTO.getDeviceId());
         MstStockDTO stockDTO = new MstStockDTO();
-        stockDTO.setStockQty(requestDTO.getStock());
+        stockDTO.setQty(requestDTO.getStock());
         stockDTO.setDeviceId(requestDTO.getDeviceId());
         status = stockService.saveStock(stockDTO).getStatusCodeValue();
 
@@ -104,7 +104,7 @@ public class TrxDetailStockService {
         // Stock Save
         MstStock stock = stockRepo.findByDeviceId(requestDTO.getDeviceId());
         MstStockDTO stockDTO = new MstStockDTO();
-        stockDTO.setStockQty(Math.toIntExact(requestDTO.getStock()));
+        stockDTO.setQty(Math.toIntExact(requestDTO.getStock()));
         stockDTO.setDeviceId(requestDTO.getDeviceId());
         status = stockService.saveStock(stockDTO).getStatusCodeValue();
 
