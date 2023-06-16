@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
 import java.util.Date;
+import java.util.HashMap;
 
 @Service
 public class LoginService {
@@ -61,8 +62,12 @@ public class LoginService {
         user.setToken(token);
         userRepo.save(user);
 
+        HashMap<String,String> jsonResponse = new HashMap<>();
+        jsonResponse.put("token",token);
+        jsonResponse.put("user_group",user.getUgId().toString());
+
         response.setCode("200");
-        response.setData(token);
+        response.setData(jsonResponse);
         response.setMessage("success");
 
         return new ResponseEntity<>(response, HttpStatus.OK);
