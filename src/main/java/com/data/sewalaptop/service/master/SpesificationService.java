@@ -50,11 +50,21 @@ public class SpesificationService {
 
     public ResponseEntity<?> getByDeviceId(Long deviceId){
         ResponseDTO response = new ResponseDTO();
-        MstSpesifikasi spek = spekRepo.findByDeviceId(deviceId);
+        MstSpesifikasi device = spekRepo.findByDeviceId(deviceId);
+
+        response.setCode("200");
+        response.setData(device);
+        response.setMessage("Get Data by Device id successfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> getBySpekId(Long spekId){
+        ResponseDTO response = new ResponseDTO();
+        MstSpesifikasi spek = spekRepo.findBySpekId(spekId);
 
         response.setCode("200");
         response.setData(spek);
-        response.setMessage("Get Data by Device id successfully");
+        response.setMessage("Get Data by Spek Id successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

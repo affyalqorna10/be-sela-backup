@@ -25,7 +25,7 @@ public class StockController {
         return stockService.saveStock(request);
     }
 
-    @PostMapping("/delete/{idStock}")
+    @DeleteMapping("/delete/{idStock}")
     public ResponseEntity<?> deleteStock(@RequestHeader Map<String,String> header, @PathVariable Long idStock){
 
         jwtService.filter(header);

@@ -16,7 +16,7 @@ public interface PengajuanRepository extends PagingAndSortingRepository<Pengajua
     @Query(value = "select ms.* from pengajuan ms where ms.pengajuan_id = :pengajuanId",nativeQuery = true)
     Pengajuan findByPengajuanId(@Param("pengajuanId") Long pengajuanId);
 
-    @Query(value = "select ms.* from pengajuan ms order by ms.pengajuan_id asc ",nativeQuery = true)
+    @Query(value = "select ms.* from pengajuan ms order by ms.pengajuan_id asc",nativeQuery = true)
     List<Pengajuan> findAll();
 
     @Query(value = "select mb.* from pengajuan mb where lower(mb.no_memo) = lower(:noMemo) order by mb.pengajuan_id asc limit 1",nativeQuery = true)

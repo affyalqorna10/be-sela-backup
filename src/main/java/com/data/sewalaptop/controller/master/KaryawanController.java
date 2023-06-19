@@ -32,11 +32,11 @@ public class KaryawanController {
         return karyawanService.deleteKaryawan(karyawanId);
     }
 
-    @GetMapping("/get_by/{idKaryawan}")
-    public ResponseEntity<?> getBykaryawanId(@RequestHeader Map<String,String> header,@PathVariable Long idKaryawan){
+    @GetMapping("/get_by/{karyawanId}")
+    public ResponseEntity<?> getBykaryawanId(@RequestHeader Map<String,String> header,@PathVariable Long karyawanId){
 
         jwtService.filter(header);
-        return karyawanService.getBykaryawanId(idKaryawan);
+        return karyawanService.getBykaryawanId(karyawanId);
     }
 
     @GetMapping("/get_all")

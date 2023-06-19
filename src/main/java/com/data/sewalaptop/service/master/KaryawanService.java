@@ -41,16 +41,6 @@ public class  KaryawanService {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> getByNIK(String nikKaryawan){
-        ResponseDTO response = new ResponseDTO();
-        MstKaryawan karyawan = karyawanRepo.findByNikKaryawan(nikKaryawan);
-
-        response.setCode("200");
-        response.setData(karyawan);
-        response.setMessage("Get Data By Karyawan NIK successfully");
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
     public ResponseEntity<?> getBykaryawanId(Long karyawanId){
         ResponseDTO response = new ResponseDTO();
         MstKaryawan karyawan = karyawanRepo.findByKaryawanId(karyawanId);
@@ -58,20 +48,6 @@ public class  KaryawanService {
         response.setCode("200");
         response.setData(karyawan);
         response.setMessage("Get Data By Karyawan Id successfully");
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
-    public ResponseEntity<?> getByDivisiId(Long divisiId){
-        ResponseDTO response = new ResponseDTO();
-        List<MstKaryawan> karyawanList = karyawanRepo.findAllByDivisiId(divisiId);
-        if (karyawanList == null){
-            response.setCode("204");
-            response.setMessage("Divisi ID not found");
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        response.setCode("200");
-        response.setData(karyawanList);
-        response.setMessage("Get All Data By Divisi Id successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

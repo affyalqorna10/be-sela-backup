@@ -139,10 +139,10 @@ public class PengajuanService {
 
     public ResponseEntity<?> getAll(){
         ResponseDTO response = new ResponseDTO();
-        List<Pengajuan> pengajuan1 = pengajuanRepo.findAll();
+        List<Pengajuan> pengajuan = pengajuanRepo.findAll();
 
         response.setCode("200");
-        response.setData(pengajuan1);
+        response.setData(pengajuan);
         response.setMessage("Get All Data successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

@@ -31,11 +31,18 @@ public class SpesificationController {
         return spekService.deleteSpesification(idSpek);
     }
 
-    @GetMapping("/get_by/{deviceId}")
+    @GetMapping("/get_device_by/{deviceId}")
     public ResponseEntity<?> getByDeviceId(@RequestHeader Map<String,String> header, @PathVariable Long deviceId){
 
         jwtService.filter(header);
         return spekService.getByDeviceId(deviceId);
+    }
+
+    @GetMapping("/get_spek_by/{spekId}")
+    public ResponseEntity<?> getBySpekId(@RequestHeader Map<String,String> header, @PathVariable Long spekId){
+
+        jwtService.filter(header);
+        return spekService.getBySpekId(spekId);
     }
 
     @GetMapping("/get_all")
