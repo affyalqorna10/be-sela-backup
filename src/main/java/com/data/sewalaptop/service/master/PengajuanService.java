@@ -150,6 +150,11 @@ public class PengajuanService {
     public ResponseEntity<?> getByPengajuanId(Long pengajuanId){
         ResponseDTO response = new ResponseDTO();
         Pengajuan pengajuan = pengajuanRepo.findByPengajuanId(pengajuanId);
+        if (pengajuan == null){
+            response.setCode("204");
+            response.setMessage("Pengajuan ID not found");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
         response.setCode("200");
         response.setData(pengajuan);

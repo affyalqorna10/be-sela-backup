@@ -51,6 +51,11 @@ public class SpesificationService {
     public ResponseEntity<?> getByDeviceId(Long deviceId){
         ResponseDTO response = new ResponseDTO();
         MstSpesifikasi device = spekRepo.findByDeviceId(deviceId);
+        if (device == null){
+            response.setCode("204");
+            response.setMessage("Spek ID not found");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
         response.setCode("200");
         response.setData(device);
@@ -61,6 +66,11 @@ public class SpesificationService {
     public ResponseEntity<?> getBySpekId(Long spekId){
         ResponseDTO response = new ResponseDTO();
         MstSpesifikasi spek = spekRepo.findBySpekId(spekId);
+        if (spek == null){
+            response.setCode("204");
+            response.setMessage("Spek ID not found");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
         response.setCode("200");
         response.setData(spek);
@@ -83,12 +93,14 @@ public class SpesificationService {
         MstSpesifikasi spekEntity = new MstSpesifikasi();
         MstSpesifikasi spek = spekRepo.findByDeviceId(requestDTO.getDeviceId());
         if (spek == null) {
+            if (isNullStr(requestDTO.getDeviceName())){
             if (isNullStr(requestDTO.getStorage())){
                 if (isNullStr(requestDTO.getProcessor())){
                     if (isNullStr(requestDTO.getRam())){
                         if (isNullStr(requestDTO.getGraphicCard())) {
 
                             spekEntity.setDeviceId(requestDTO.getDeviceId());
+                            spekEntity.setDeviceName(requestDTO.getDeviceName());
                             spekEntity.setStorage(requestDTO.getStorage());
                             spekEntity.setProcessor(requestDTO.getProcessor());
                             spekEntity.setRam(requestDTO.getRam());
@@ -100,6 +112,10 @@ public class SpesificationService {
                             response.setData(null);
                             response.setMessage("Spesification has been saved successfully");
                             return new ResponseEntity<>(response, HttpStatus.CREATED);
+                        }
+                        response.setCode("204");
+                        response.setMessage("Device Name cannot be empty");
+                        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
                         }
                         response.setCode("204");
                         response.setMessage("Graphic Card cannot be empty");
@@ -144,6 +160,12 @@ public class SpesificationService {
             spekEntity.setDeviceId(spek.getDeviceId());
         }else{
             spekEntity.setDeviceId(requestDTO.getDeviceId());
+        }
+
+        if (isNullStr(requestDTO.getDeviceName())){
+            spekEntity.setDeviceName(spek.getDeviceName());
+        }else{
+            spekEntity.setDeviceName(requestDTO.getDeviceName());
         }
 
         if (isNullStr(requestDTO.getStorage())){

@@ -47,6 +47,11 @@ public class DivisiService {
     public ResponseEntity<?> getByDivisiId(Long divisiId) {
         ResponseDTO response = new ResponseDTO();
         MstDivisi divisi = divRepo.findByDivisiId(divisiId);
+        if (divisi == null) {
+            response.setCode("204");
+            response.setMessage("Divisi ID not found");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
         response.setCode("200");
         response.setData(divisi);

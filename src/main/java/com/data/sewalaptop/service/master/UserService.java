@@ -66,6 +66,11 @@ public class UserService {
     public ResponseEntity<?> getByUserId(Long userId){
         ResponseDTO response = new ResponseDTO();
         MstUser user = userRepo.findByUserId(userId);
+        if (user == null){
+            response.setCode("204");
+            response.setMessage("User ID not found");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
         response.setCode("200");
         response.setData(user);

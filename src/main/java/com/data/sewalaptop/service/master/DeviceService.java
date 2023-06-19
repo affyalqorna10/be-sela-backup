@@ -44,10 +44,15 @@ public class DeviceService {
 
     public ResponseEntity<?> getByDeviceId(Long deviceId){
         ResponseDTO response = new ResponseDTO();
-        MstDevices brands = deviceRepo.findByDeviceId(deviceId);
+        MstDevices devices = deviceRepo.findByDeviceId(deviceId);
+        if (devices == null){
+            response.setCode("204");
+            response.setMessage("Device ID not found");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
         response.setCode("200");
-        response.setData(brands);
+        response.setData(devices);
         response.setMessage("Get Data By Device Id successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

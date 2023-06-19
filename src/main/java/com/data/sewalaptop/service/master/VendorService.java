@@ -139,6 +139,11 @@ public class VendorService {
     public ResponseEntity<?> getByVendorId(Long vendorId){
         ResponseDTO response = new ResponseDTO();
         MstVendor vendor = vendorRepo.findByVendorId(vendorId);
+        if (vendor == null){
+            response.setCode("204");
+            response.setMessage("Vendor ID not found");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
         response.setCode("200");
         response.setData(vendor);

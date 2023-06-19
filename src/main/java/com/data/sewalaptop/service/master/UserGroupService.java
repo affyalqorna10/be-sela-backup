@@ -46,6 +46,11 @@ public class UserGroupService {
     public ResponseEntity<?> getByGroupId(Long ugId){
         ResponseDTO response = new ResponseDTO();
         MstUserGroup userGroups = usrGropRepo.findByGroupId(ugId);
+        if (userGroups == null){
+            response.setCode("204");
+            response.setMessage("User Group ID not found");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
         response.setCode("200");
         response.setData(userGroups);

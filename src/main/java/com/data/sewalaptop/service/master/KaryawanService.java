@@ -44,6 +44,11 @@ public class  KaryawanService {
     public ResponseEntity<?> getBykaryawanId(Long karyawanId){
         ResponseDTO response = new ResponseDTO();
         MstKaryawan karyawan = karyawanRepo.findByKaryawanId(karyawanId);
+        if (karyawan == null){
+            response.setCode("204");
+            response.setMessage("Karyawan ID not found");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
         response.setCode("200");
         response.setData(karyawan);
