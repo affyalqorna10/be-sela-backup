@@ -1,24 +1,42 @@
 package com.data.sewalaptop.service.master;
 
 import com.data.sewalaptop.common.ResponseDTO;
-import com.data.sewalaptop.dto.master.PengajuanDTO;
+import com.data.sewalaptop.dto.master.*;
+import com.data.sewalaptop.dto.transaction.PengajuanResponse;
 import com.data.sewalaptop.model.master.*;
 import com.data.sewalaptop.repository.master.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.ls.LSInput;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import static com.data.sewalaptop.common.Checker.isNullStr;
-import static java.util.Objects.isNull;
+import java.util.Optional;
 
 @Service
+@Slf4j
 public class PengajuanService {
 
     @Autowired
     private PengajuanRepository pengajuanRepo;
+
+    @Autowired
+    private SpesificationRepository spesificationRepo;
+
+    @Autowired
+    private KaryawanRepository karyawanRepo;
+
+    @Autowired
+    private DeviceRepository deviceRepo;
+
+    @Autowired
+    private DivisiRespository divisiRespo;
+
+    @Autowired
+    private DeviceService deviceService;
 
     @Autowired
     private SpesificationService spesificationService;
@@ -26,40 +44,32 @@ public class PengajuanService {
     @Autowired
     private KaryawanService karyawanService;
 
-    @Autowired
-    private KaryawanRepository karyawanRepo;
+    public ResponseEntity<?> savePengajuan(MstPengajuanDTO requestDTO){
 
-    @Autowired
-    private SpesificationRepository spesificationRepo;
-
-    public ResponseEntity<?> savePengajuan(PengajuanDTO requestDTO){
-        if (requestDTO.getPengajuanId() == null) {
-            return createPengajuan(requestDTO);
-        }
-        return updatePengajuan(requestDTO);
+        return createPengajuan(requestDTO);
     }
 
-    private ResponseEntity<?> createPengajuan(PengajuanDTO requestDTO) {
+    private ResponseEntity<?> createPengajuan(MstPengajuanDTO requestDTO){
         ResponseDTO response = new ResponseDTO();
         MstSpesifikasi spesifikasi = spesificationRepo.findBySpekId(requestDTO.getSpekId());
-        MstKaryawan karyawans = karyawanRepo.findByKaryawanId(requestDTO.getKaryawanId());
+        MstKaryawan karyawan = karyawanRepo.findByKaryawanId(requestDTO.getKaryawanId());
 
-        if (spesifikasi.getSpekId() == null) {
+        if (spesifikasi.getSpekId() == null){
             response.setCode("204");
             response.setMessage("Spesifikasi Id cannot be empty");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        if (karyawans.getKaryawanId() == null){
+        if (karyawan.getKaryawanId() == null){
             response.setCode("204");
             response.setMessage("karyawam Id cannot be empty");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        Pengajuan pengajuanEntity = new Pengajuan();
-        Pengajuan pengajuan = pengajuanRepo.findByPengajuanId(requestDTO.getPengajuanId());
+        MstPengajuan pengajuanEntity = new MstPengajuan();
+        MstPengajuan pengajuan = pengajuanRepo.findByPengajuanId(requestDTO.getPengajuanId());
 
-        if (pengajuan == null) {
+        if (pengajuan == null){
             pengajuanEntity.setSpekId(requestDTO.getSpekId());
             pengajuanEntity.setKaryawanId(requestDTO.getKaryawanId());
             pengajuanEntity.setNoMemo(requestDTO.getNoMemo());
@@ -75,105 +85,121 @@ public class PengajuanService {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    private ResponseEntity<?> updatePengajuan(PengajuanDTO requestDTO){
-        ResponseDTO response = new ResponseDTO();
-        Pengajuan pengajuanEntity = new Pengajuan();
-        Pengajuan pengajuanList = pengajuanRepo.findByPengajuanId(requestDTO.getPengajuanId());
-
-        if (pengajuanList == null){
-            response.setCode("204");
-            response.setMessage("data not found");
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        Pengajuan pengajuan = pengajuanRepo.findByPengajuanId(requestDTO.getPengajuanId());
-        if (requestDTO.getPengajuanId() == null){
-            pengajuanEntity.setPengajuanId(pengajuan.getPengajuanId());
-        }else{
-            pengajuanEntity.setPengajuanId(requestDTO.getPengajuanId());
-        }
-
-        if (requestDTO.getSpekId() == null){
-            pengajuanEntity.setSpekId(pengajuan.getSpekId());
-        }else{
-            pengajuanEntity.setSpekId(requestDTO.getSpekId());
-        }
-
-        if (requestDTO.getKaryawanId() == null){
-            pengajuanEntity.setKaryawanId(pengajuan.getKaryawanId());
-        }else {
-            pengajuanEntity.setKaryawanId(requestDTO.getKaryawanId());
-        }
-
-        if (isNullStr(requestDTO.getNoMemo())){
-            pengajuanEntity.setNoMemo(requestDTO.getNoMemo());
-        }else{
-            pengajuanEntity.setNoMemo(requestDTO.getNoMemo());
-        }
-
-        if (isNull(requestDTO.getTglPengajuan())){
-            pengajuanEntity.setTglPengajuan(requestDTO.getTglPengajuan());
-        }else{
-            pengajuanEntity.setTglPengajuan(requestDTO.getTglPengajuan());
-        }
-
-        if (isNull(requestDTO.getTglPenerima())){
-            pengajuanEntity.setTglPenerima(requestDTO.getTglPenerima());
-        }else{
-            pengajuanEntity.setTglPenerima(requestDTO.getTglPenerima());
-        }
-
-        if (isNullStr(requestDTO.getStatus())){
-            pengajuanEntity.setStatus(requestDTO.getStatus());
-        }else{
-            pengajuanEntity.setStatus(requestDTO.getStatus());
-        }
-
-        pengajuanRepo.save(pengajuanEntity);
-
-        response.setCode("201");
-        response.setData(null);
-        response.setMessage("Pengajuan has been saved successfully");
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
-    }
-
     public ResponseEntity<?> getAll(){
         ResponseDTO response = new ResponseDTO();
-        List<Pengajuan> pengajuan = pengajuanRepo.findAll();
+        List<MstPengajuan> pengajuans = pengajuanRepo.findAll();
+        List<PengajuanResponse> responses = new ArrayList<>();
+
+        for(MstPengajuan pengajuan:pengajuans){
+            PengajuanResponse resp = new PengajuanResponse();
+            resp.setPengajuanId(pengajuan.getPengajuanId());
+            resp.setSpekId(pengajuan.getSpekId());
+            resp.setKaryawanId(pengajuan.getKaryawanId());
+            resp.setNoMemo(pengajuan.getNoMemo());
+            resp.setTglPengajuan(pengajuan.getTglPengajuan());
+            resp.setTglPenerima(pengajuan.getTglPenerima());
+            resp.setStatus(pengajuan.getStatus());
+
+            MstKaryawan karyawan = karyawanRepo.findByKaryawanId(resp.getKaryawanId());
+            MstKaryawanDTO dtoKaryawan = new MstKaryawanDTO();
+
+            dtoKaryawan.setKaryawanId(karyawan.getKaryawanId());
+            dtoKaryawan.setDivisiId(karyawan.getDivisiId());
+            dtoKaryawan.setNikKaryawan(karyawan.getNikKaryawan());
+            dtoKaryawan.setNamaDepan(karyawan.getNamaDepan());
+            dtoKaryawan.setNamaBelakang(karyawan.getNamaBelakang());
+
+            MstDivisi divisi = divisiRespo.findByDivisiId(karyawan.getDivisiId());
+            MstDivisiDTO dtoDivisi = new MstDivisiDTO();
+
+            dtoDivisi.setDivisiId(divisi.getDivisiId());
+            dtoDivisi.setNamaDivisi(divisi.getNamaDivisi());
+
+            MstSpesifikasi spesifikasi = spesificationRepo.findBySpekId(resp.getSpekId());
+            MstSpesifikasiDTO dtoSpesifikasi = new MstSpesifikasiDTO();
+
+            dtoSpesifikasi.setStorage(spesifikasi.getStorage());
+            dtoSpesifikasi.setProcessor(spesifikasi.getProcessor());
+            dtoSpesifikasi.setRam(spesifikasi.getRam());
+            dtoSpesifikasi.setGraphicCard(spesifikasi.getGraphicCard());
+
+            MstDevices devices = deviceRepo.findByDeviceId(spesifikasi.getDeviceId());
+            MstDevicesDTO dtoDevice = new MstDevicesDTO();
+
+            dtoDevice.setDeviceName(devices.getDeviceName());
+
+            resp.setSpesifikasi(dtoSpesifikasi);
+            resp.setKaryawan(dtoKaryawan);
+            resp.setDivisi(dtoDivisi);
+            resp.setDevice(dtoDevice);
+
+            responses.add(resp);
+        }
 
         response.setCode("200");
-        response.setData(pengajuan);
+        response.setData(responses);
         response.setMessage("Get All Data successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> getByPengajuanId(Long pengajuanId){
+    public ResponseEntity<?> getByAllPengajuanId(Long pengajuanId){
         ResponseDTO response = new ResponseDTO();
-        Pengajuan pengajuan = pengajuanRepo.findByPengajuanId(pengajuanId);
+        MstPengajuan pengajuan = pengajuanRepo.findByPengajuanId(pengajuanId);
+        PengajuanResponse resp = new PengajuanResponse();
+        if(pengajuan==null){
+            response.setCode("400");
+            response.setMessage("Err:Pengajuan tidak ditemukan");
+            response.setData(null);
+            return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+        }
+        resp.setPengajuanId(pengajuan.getPengajuanId());
+        resp.setSpekId(pengajuan.getSpekId());
+        resp.setKaryawanId(pengajuan.getKaryawanId());
+        resp.setNoMemo(pengajuan.getNoMemo());
+        resp.setTglPengajuan(pengajuan.getTglPengajuan());
+        resp.setTglPenerima(pengajuan.getTglPenerima());
+        resp.setStatus(pengajuan.getStatus());
+
+        MstKaryawan karyawan = karyawanRepo.findByKaryawanId(resp.getKaryawanId());
+        MstKaryawanDTO dtoKaryawan = new MstKaryawanDTO();
+
+        dtoKaryawan.setKaryawanId(karyawan.getKaryawanId());
+        dtoKaryawan.setDivisiId(karyawan.getDivisiId());
+        dtoKaryawan.setNikKaryawan(karyawan.getNikKaryawan());
+        dtoKaryawan.setNamaDepan(karyawan.getNamaDepan());
+        dtoKaryawan.setNamaBelakang(karyawan.getNamaBelakang());
+
+        MstDivisi divisi = divisiRespo.findByDivisiId(karyawan.getDivisiId());
+        MstDivisiDTO dtoDivisi = new MstDivisiDTO();
+
+        dtoDivisi.setDivisiId(divisi.getDivisiId());
+        dtoDivisi.setNamaDivisi(divisi.getNamaDivisi());
+
+        MstSpesifikasi spesifikasi = spesificationRepo.findBySpekId(resp.getSpekId());
+        MstSpesifikasiDTO dtoSpesifikasi = new MstSpesifikasiDTO();
+
+        dtoSpesifikasi.setStorage(spesifikasi.getStorage());
+        dtoSpesifikasi.setProcessor(spesifikasi.getProcessor());
+        dtoSpesifikasi.setRam(spesifikasi.getRam());
+        dtoSpesifikasi.setGraphicCard(spesifikasi.getGraphicCard());
+
+        MstDevices devices = deviceRepo.findByDeviceId(spesifikasi.getDeviceId());
+        MstDevicesDTO dtoDevice = new MstDevicesDTO();
+
+        dtoDevice.setDeviceName(devices.getDeviceName());
+
+        resp.setSpesifikasi(dtoSpesifikasi);
+        resp.setKaryawan(dtoKaryawan);
+        resp.setDivisi(dtoDivisi);
+        resp.setDevice(dtoDevice);
         if (pengajuan == null){
             response.setCode("204");
-            response.setMessage("Pengajuan ID not found");
+            response.setMessage("All Pengajuan ID not found");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
         response.setCode("200");
-        response.setData(pengajuan);
-        response.setMessage("Get Data by pengajuan id successfully");
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
-    public ResponseEntity<?> deletePengajuan(Long pengajuanId){
-        ResponseDTO response = new ResponseDTO();
-        Pengajuan pengajuan = pengajuanRepo.findByPengajuanId(pengajuanId);
-        if (pengajuan == null){
-            response.setCode("204");
-            response.setMessage("Pengajuan ID not found");
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        pengajuanRepo.delete(pengajuan);
-        response.setCode("200");
-        response.setData(null);
-        response.setMessage("Pengajuan Id successfully deleted");
+        response.setData(resp);
+        response.setMessage("Get Data By Karyawan Id successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

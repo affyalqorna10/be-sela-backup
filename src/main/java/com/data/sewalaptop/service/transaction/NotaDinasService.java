@@ -1,7 +1,6 @@
 package com.data.sewalaptop.service.transaction;
 
 import com.data.sewalaptop.common.ResponseDTO;
-import com.data.sewalaptop.dto.master.PengajuanDTO;
 import com.data.sewalaptop.dto.transaction.MstNotaDinasDTO;
 import com.data.sewalaptop.model.master.MstKaryawan;
 import com.data.sewalaptop.model.transaction.MstNotaDinas;

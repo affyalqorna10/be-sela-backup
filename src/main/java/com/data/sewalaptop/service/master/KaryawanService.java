@@ -2,7 +2,9 @@ package com.data.sewalaptop.service.master;
 
 import com.data.sewalaptop.common.ResponseDTO;
 import com.data.sewalaptop.dto.master.MstKaryawanDTO;
+import com.data.sewalaptop.model.master.MstDivisi;
 import com.data.sewalaptop.model.master.MstKaryawan;
+import com.data.sewalaptop.repository.master.DivisiRespository;
 import com.data.sewalaptop.repository.master.KaryawanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,12 @@ import static com.data.sewalaptop.common.Checker.isNullStr;
 public class  KaryawanService {
     @Autowired
     private KaryawanRepository karyawanRepo;
+
+    @Autowired
+    private DivisiRespository divisiRespo;
+
+    @Autowired
+    private DivisiService divisiService;
 
     public ResponseEntity<?> savekaryawan(MstKaryawanDTO requestDTO){
         if (requestDTO.getKaryawanId() == null) {
@@ -53,6 +61,21 @@ public class  KaryawanService {
         response.setCode("200");
         response.setData(karyawan);
         response.setMessage("Get Data By Karyawan Id successfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> getByDivisiId(Long divisiId) {
+        ResponseDTO response = new ResponseDTO();
+        List<MstKaryawan> divisi = karyawanRepo.findAllByDivisiId(divisiId);
+        if (divisi == null) {
+            response.setCode("204");
+            response.setMessage("Divisi ID not found");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.setCode("200");
+        response.setData(divisi);
+        response.setMessage("Get Data by divisi id successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

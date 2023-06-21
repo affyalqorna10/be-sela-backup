@@ -1,6 +1,6 @@
 package com.data.sewalaptop.controller.master;
 
-import com.data.sewalaptop.dto.master.PengajuanDTO;
+import com.data.sewalaptop.dto.master.MstPengajuanDTO;
 import com.data.sewalaptop.service.master.JwtService;
 import com.data.sewalaptop.service.master.PengajuanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,24 +20,24 @@ public class PengajuanController {
     JwtService jwtService;
 
     @PostMapping("/save")
-    public ResponseEntity<?> savePengajuan(@RequestHeader Map<String,String> header, @RequestBody PengajuanDTO request){
+    public ResponseEntity<?> savePengajuan(@RequestHeader Map<String,String> header, @RequestBody MstPengajuanDTO request){
 
         jwtService.filter(header);
         return pengajuanService.savePengajuan(request);
     }
 
-    @DeleteMapping("/delete/{pengajuanId}")
-    public ResponseEntity<?> savePengajuan(@RequestHeader Map<String,String> header, @PathVariable Long pengajuanId){
+//    @DeleteMapping("/delete/{pengajuanId}")
+//    public ResponseEntity<?> savePengajuan(@RequestHeader Map<String,String> header, @PathVariable Long pengajuanId){
+//
+//        jwtService.filter(header);
+//        return pengajuanService.deletePengajuan(pengajuanId);
+//    }
+//
+    @GetMapping("/get_all_by/{pengajuanId}")
+    public ResponseEntity<?> getByAllPengajuanId(@RequestHeader Map<String,String> header, @PathVariable Long pengajuanId){
 
         jwtService.filter(header);
-        return pengajuanService.deletePengajuan(pengajuanId);
-    }
-
-    @GetMapping("/get_by/{pengajuanId}")
-    public ResponseEntity<?> getByPengajuanId(@RequestHeader Map<String,String> header, @PathVariable Long pengajuanId){
-
-        jwtService.filter(header);
-        return pengajuanService.getByPengajuanId(pengajuanId);
+        return pengajuanService.getByAllPengajuanId(pengajuanId);
     }
 
     @GetMapping("/get_all")

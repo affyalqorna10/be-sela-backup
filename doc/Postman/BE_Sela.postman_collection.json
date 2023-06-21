@@ -25,11 +25,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/user/login",
+							"raw": "localhost:8080/api/v1/user/login",
 							"host": [
-								"{{baseURL}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"api",
+								"v1",
 								"user",
 								"login"
 							]
@@ -181,7 +184,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZWxhIiwiZXhwIjoxNjg3MDA3MjA5fQ.53-XE2Xcb-0vWvpI-FLG_xSDCSJrKjy5oGyWBkuoN7YlDIzyoOIrlRSQ9jBF3YWtPgDaiGOCyjC4bKmQJJNlFQ",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZWxhIiwiZXhwIjoxNjg3NDA4NTc3fQ.2kWl1zJT5-F02SFn6cLoJWsxLFRJVKsZi_m2tPnS3dsbbnV5bYWaZT8a5FvHmHAaEONkr0ijl-ABmSKZePfAhA",
 									"type": "string"
 								}
 							]
@@ -214,7 +217,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZWxhIiwiZXhwIjoxNjg3MjUyNTQzfQ.tnj99WFTkeLLQDIZBw2k0GkRaQsdqn4FgF10dQxSfX5ry3JaGv8kpk5c6J6CbonpWsxf08GuftVSljv71AMD0w",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZWxhIiwiZXhwIjoxNjg3MzIxODA3fQ._10l3f2FIWW7gZ1cCbX8PwsCcmUyZxg4fwobQLtWPwpPW5i_1mVgbF7Uvlt2ffbGnsyWGRqgmKlK9ekQy9pwzg",
 									"type": "string"
 								}
 							]
@@ -223,7 +226,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"deviceId\": 1,\r\n    \"deviceName\": \"NOTE BOOK\",\r\n    \"storage\" : \"512SSD\",\r\n    \"processor\" : \"M2 Pro Chip\",\r\n    \"ram\" : \"16\",\r\n    \"graphicCard\" : \"16 core\"\r\n}",
+							"raw": "{\r\n    \"deviceId\": 2,\r\n    \"deviceName\": \"NOTE BOOK\",\r\n    \"storage\" : \"512SSD\",\r\n    \"processor\" : \"M2 Pro Chip\",\r\n    \"ram\" : \"16\",\r\n    \"graphicCard\" : \"16 core\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -254,7 +257,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZWxhIiwiZXhwIjoxNjg3MjUyNTQzfQ.tnj99WFTkeLLQDIZBw2k0GkRaQsdqn4FgF10dQxSfX5ry3JaGv8kpk5c6J6CbonpWsxf08GuftVSljv71AMD0w",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZWxhIiwiZXhwIjoxNjg3MzIxODA3fQ._10l3f2FIWW7gZ1cCbX8PwsCcmUyZxg4fwobQLtWPwpPW5i_1mVgbF7Uvlt2ffbGnsyWGRqgmKlK9ekQy9pwzg",
 									"type": "string"
 								}
 							]
@@ -263,7 +266,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"spekId\": 352,\r\n    \"deviceId\": 1,\r\n    \"deviceName\": \"Mac Book\",\r\n    \"storage\": \"512SSD\",\r\n    \"processor\": \"M2 Pro Chip\",\r\n    \"ram\": \"16\",\r\n    \"graphicCard\": \"16 core\"\r\n}",
+							"raw": "{\r\n    \"spekId\": 402,\r\n    \"deviceId\": 1,\r\n    \"deviceName\": \"Mac Book\",\r\n    \"storage\": \"512SSD\",\r\n    \"processor\": \"M2 Pro Chip\",\r\n    \"ram\": \"16\",\r\n    \"graphicCard\": \"16 coree\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -365,7 +368,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZWxhIiwiZXhwIjoxNjg3MjUyNTQzfQ.tnj99WFTkeLLQDIZBw2k0GkRaQsdqn4FgF10dQxSfX5ry3JaGv8kpk5c6J6CbonpWsxf08GuftVSljv71AMD0w",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZWxhIiwiZXhwIjoxNjg3MzIxODA3fQ._10l3f2FIWW7gZ1cCbX8PwsCcmUyZxg4fwobQLtWPwpPW5i_1mVgbF7Uvlt2ffbGnsyWGRqgmKlK9ekQy9pwzg",
 									"type": "string"
 								}
 							]
@@ -1278,7 +1281,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1/karyawan/get_by_divisiId/204",
+							"raw": "localhost:8080/api/v1/karyawan/get_divisi_by/2",
 							"host": [
 								"localhost"
 							],
@@ -1287,15 +1290,15 @@
 								"api",
 								"v1",
 								"karyawan",
-								"get_by_divisiId",
-								"204"
+								"get_divisi_by",
+								"2"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "GET BY ID",
+					"name": "GET KARYAWAN BY ID",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1341,7 +1344,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZWxhIiwiZXhwIjoxNjg3MjI4NTQ1fQ.JnSKCQI-0iV4QD3kxKHB5vg-_d-eIL_z2K8eTWZUMNQbmHpqJ6FOuF14-imMlsMD8Ogul_U81mi556E93F2NMg",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZWxhIiwiZXhwIjoxNjg3MzIwMzQzfQ.WF3wzu1pW24qTK3nDzJTpddB8c-5DP4tieGq2DUSD2b0sAqBU64CVTQRrxNEjbP1CRgoZdkiqCrVViLNAvkH6g",
 									"type": "string"
 								}
 							]
@@ -1658,7 +1661,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZWxhIiwiZXhwIjoxNjg3MjI5OTQ5fQ.tzxvWr7kp_OLqQKLdUp2Gjj9uXT8bNgqw4gdpHiYPlWu3A72BTBn_Xu7th-w5Pc8s_0FB6zuV-1bb0-GvY8dIQ",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZWxhIiwiZXhwIjoxNjg3NDQwMjcxfQ.F1vr1g7lhpQv0qr1XcIonMoxq9O5AnQbIq0DEFirNDq8UnRA6lhVLdQ6k3Sm_KRSvliVWqGs1jqB40o4GLDKrg",
 									"type": "string"
 								}
 							]
@@ -1667,7 +1670,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"spekId\" : 252,\r\n    \"karyawanId\" : 155,\r\n    \"noMemo\" : \"007/019/2023\",\r\n    \"tglPengajuan\" : \"2023-06-13\",\r\n    \"tglPenerima\" : \"2023-06-25\",\r\n    \"status\" : \"diajukan\"\r\n}",
+							"raw": "{\r\n    \"spekId\" : 403,\r\n    \"karyawanId\" : 152,\r\n    \"noMemo\" : \"107/45TDM/001\",\r\n    \"tglPengajuan\" : \"2023-06-13\",\r\n    \"tglPenerima\" : \"2023-06-25\",\r\n    \"status\" : \"diajukan\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1675,11 +1678,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/pengajuan/save",
+							"raw": "localhost:8080/api/v1/pengajuan/save",
 							"host": [
-								"{{baseURL}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"api",
+								"v1",
 								"pengajuan",
 								"save"
 							]
@@ -1735,7 +1741,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZWxhIiwiZXhwIjoxNjg3MTQ5MjkxfQ._B3u2dAl3t5MLLmhzhc4dvRFzJ_xhsFK1QNH5r8421RbaAmBSn_cpfO75crl9LbeKy-01yvXR-uxo-qHGGi3TA",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZWxhIiwiZXhwIjoxNjg3NDQwMjcxfQ.F1vr1g7lhpQv0qr1XcIonMoxq9O5AnQbIq0DEFirNDq8UnRA6lhVLdQ6k3Sm_KRSvliVWqGs1jqB40o4GLDKrg",
 									"type": "string"
 								}
 							]
@@ -1792,14 +1798,14 @@
 					"response": []
 				},
 				{
-					"name": "GET BY ID",
+					"name": "GET PENGAJUAN BY ID",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZWxhIiwiZXhwIjoxNjg2ODEzNTE3fQ.K6WSJ2cKaycLGx4lVWGne8Vrog50gGS6WUdDK0GSvdRfoodJtZ7QPvzHgnS1SCN-JACKMp44G09nW_PJDHnUDw",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZWxhIiwiZXhwIjoxNjg3NDQwMjcxfQ.F1vr1g7lhpQv0qr1XcIonMoxq9O5AnQbIq0DEFirNDq8UnRA6lhVLdQ6k3Sm_KRSvliVWqGs1jqB40o4GLDKrg",
 									"type": "string"
 								}
 							]
@@ -1807,7 +1813,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1/pengajuan/get_by/52",
+							"raw": "localhost:8080/api/v1/pengajuan/get_all_by/3034",
 							"host": [
 								"localhost"
 							],
@@ -1816,8 +1822,8 @@
 								"api",
 								"v1",
 								"pengajuan",
-								"get_by",
-								"52"
+								"get_all_by",
+								"3034"
 							]
 						}
 					},

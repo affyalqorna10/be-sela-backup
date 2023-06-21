@@ -17,9 +17,6 @@ public interface KaryawanRepository extends PagingAndSortingRepository<MstKaryaw
     @Query(value = "select ms.* from mst_karyawan ms where ms.karyawan_id= :karyawanId order by ms.karyawan_id asc limit 1",nativeQuery = true)
     MstKaryawan findByKaryawanId(@Param("karyawanId") Long karyawanId);
 
-    @Query(value = "select ms.* from mst_karyawan ms where ms.divisi_id = :divisiId order by ms.karyawan_id asc limit 1",nativeQuery = true)
-    MstKaryawan findByDivisiId(@Param("divisiId") Long divisiId);
-
     @Query(value = "select ms.* from mst_karyawan ms where ms.divisi_id= :divisiId order by ms.karyawan_id asc ",nativeQuery = true)
     List<MstKaryawan> findAllByDivisiId(@Param("divisiId") Long divisiId);
 
