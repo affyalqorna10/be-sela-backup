@@ -1,15 +1,16 @@
 package com.data.sewalaptop.service.master;
 
 import com.data.sewalaptop.common.ResponseDTO;
-import com.data.sewalaptop.dto.master.MstKaryawanDTO;
-import com.data.sewalaptop.dto.master.MstLoginDTO;
-import com.data.sewalaptop.dto.master.MstUserDTO;
+import com.data.sewalaptop.dto.master.*;
+import com.data.sewalaptop.dto.transaction.PengajuanResponse;
 import com.data.sewalaptop.model.master.MstKaryawan;
 import com.data.sewalaptop.model.master.MstUser;
+import com.data.sewalaptop.model.master.MstUserGroup;
 import com.data.sewalaptop.model.master.OAuth;
 import com.data.sewalaptop.repository.master.*;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import java.util.*;
 import static com.data.sewalaptop.common.Checker.isNullStr;
 
 @Service
+@Slf4j
 public class UserService {
 
     @Autowired
@@ -63,21 +65,6 @@ public class UserService {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> getByUserId(Long userId){
-        ResponseDTO response = new ResponseDTO();
-        MstUser user = userRepo.findByUserId(userId);
-        if (user == null){
-            response.setCode("204");
-            response.setMessage("User ID not found");
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        response.setCode("200");
-        response.setData(user);
-        response.setMessage("Get Data By User Id successfully");
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
     private ResponseEntity<?> createUser(MstUserDTO requestDTO) {
         ResponseDTO response = new ResponseDTO();
         MstUser userEntity = new MstUser();
@@ -113,10 +100,61 @@ public class UserService {
     public ResponseEntity<?> getAll(){
         ResponseDTO response = new ResponseDTO();
         List<MstUser> userList = userRepo.findAll();
+        List<UserResponse> responses = new ArrayList<>();
+
+        for(MstUser user:userList){
+            UserResponse resp = new UserResponse();
+            resp.setUserId(user.getUserId());
+            resp.setUgId(user.getUgId());
+            resp.setKaryawanId(user.getKaryawanId());
+            resp.setUserEmail(user.getUserEmail());
+            resp.setPassword(user.getPassword());
+
+            MstUserGroup userGroup = userGroupRepo.findByGroupId(user.getUgId());
+            MstUserGroupDTO dtouserGroup = new MstUserGroupDTO();
+            dtouserGroup.setNamaGroup(userGroup.getNamaGroup());
+
+            resp.setUserGroup(dtouserGroup);
+
+            responses.add(resp);
+
+        }
 
         response.setCode("200");
-        response.setData(userList);
+        response.setData(responses);
         response.setMessage("Get All Data successfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> getByUserId(Long userId){
+        ResponseDTO response = new ResponseDTO();
+        MstUser user = userRepo.findByUserId(userId);
+        UserResponse resp = new UserResponse();
+        if(user == null){
+            response.setCode("400");
+            response.setMessage("Err:User tidak ditemukan");
+            response.setData(null);
+            return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+        }
+        resp.setUserId(user.getUserId());
+        resp.setUgId(user.getUgId());
+        resp.setKaryawanId(user.getKaryawanId());
+        resp.setUserEmail(user.getUserEmail());
+        resp.setPassword(user.getPassword());
+
+        MstUserGroup userGroup = userGroupRepo.findByGroupId(user.getUgId());
+        MstUserGroupDTO dtouserGroup = new MstUserGroupDTO();
+        dtouserGroup.setNamaGroup(userGroup.getNamaGroup());
+
+        resp.setUserGroup(dtouserGroup);
+        if (user == null){
+            response.setCode("204");
+            response.setMessage("User ID not found");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        response.setCode("200");
+        response.setData(resp);
+        response.setMessage("Get Data By User Id successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
