@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.data.sewalaptop.common.Checker.isNullStr;
+import static java.util.Objects.isNull;
+
 @Service
 @Slf4j
 public class PengajuanService {
@@ -45,8 +48,10 @@ public class PengajuanService {
     private KaryawanService karyawanService;
 
     public ResponseEntity<?> savePengajuan(MstPengajuanDTO requestDTO){
-
-        return createPengajuan(requestDTO);
+        if (requestDTO.getPengajuanId() == null) {
+            return createPengajuan(requestDTO);
+        }
+        return updatePengajuan(requestDTO);
     }
 
     private ResponseEntity<?> createPengajuan(MstPengajuanDTO requestDTO){
@@ -79,6 +84,68 @@ public class PengajuanService {
 
             pengajuanRepo.save(pengajuanEntity);
         }
+        response.setCode("201");
+        response.setData(null);
+        response.setMessage("Pengajuan has been saved successfully");
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    private ResponseEntity<?> updatePengajuan(MstPengajuanDTO requestDTO){
+        ResponseDTO response = new ResponseDTO();
+        MstPengajuan pengajuanEntity = new MstPengajuan();
+        MstPengajuan pengajuanList = pengajuanRepo.findByPengajuanId(requestDTO.getPengajuanId());
+
+        if (pengajuanList == null){
+            response.setCode("204");
+            response.setMessage("data not found");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        MstPengajuan pengajuan = pengajuanRepo.findByPengajuanId(requestDTO.getPengajuanId());
+        if (requestDTO.getPengajuanId() == null){
+            pengajuanEntity.setPengajuanId(pengajuan.getPengajuanId());
+        }else {
+            pengajuanEntity.setPengajuanId(requestDTO.getPengajuanId());
+        }
+
+        if (requestDTO.getSpekId() == null){
+            pengajuanEntity.setSpekId(pengajuan.getSpekId());
+        }else{
+            pengajuanEntity.setSpekId(requestDTO.getSpekId());
+        }
+
+        if (requestDTO.getKaryawanId() == null){
+            pengajuanEntity.setKaryawanId(pengajuan.getKaryawanId());
+        }else{
+            pengajuanEntity.setKaryawanId(requestDTO.getKaryawanId());
+        }
+
+        if (isNullStr(requestDTO.getNoMemo())){
+            pengajuanEntity.setNoMemo(requestDTO.getNoMemo());
+        }else{
+            pengajuanEntity.setNoMemo(requestDTO.getNoMemo());
+        }
+
+        if (isNull(requestDTO.getTglPengajuan())){
+            pengajuanEntity.setTglPengajuan(requestDTO.getTglPengajuan());
+        }else{
+            pengajuanEntity.setTglPengajuan(requestDTO.getTglPengajuan());
+        }
+
+        if (isNull(requestDTO.getTglPenerima())){
+            pengajuanEntity.setTglPenerima(requestDTO.getTglPenerima());
+        }else{
+            pengajuanEntity.setTglPenerima(requestDTO.getTglPenerima());
+        }
+
+        if (isNullStr(requestDTO.getStatus())){
+            pengajuanEntity.setStatus(requestDTO.getStatus());
+        }else{
+            pengajuanEntity.setStatus(requestDTO.getStatus());
+        }
+
+        pengajuanRepo.save(pengajuanEntity);
+
         response.setCode("201");
         response.setData(null);
         response.setMessage("Pengajuan has been saved successfully");
@@ -200,6 +267,23 @@ public class PengajuanService {
         response.setCode("200");
         response.setData(resp);
         response.setMessage("Get Data By Karyawan Id successfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> deletePengajuan(Long pengajuanId){
+        ResponseDTO response = new ResponseDTO();
+        MstPengajuan pengajuan = pengajuanRepo.findByPengajuanId(pengajuanId);
+
+        if (pengajuan == null){
+            response.setCode("204");
+            response.setMessage("Pengajuan ID not found");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        pengajuanRepo.delete(pengajuan);
+
+        response.setCode("200");
+        response.setData(null);
+        response.setMessage("Pengajuan Id successfully deleted");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
