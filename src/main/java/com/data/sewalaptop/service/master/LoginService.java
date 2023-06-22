@@ -62,12 +62,12 @@ public class LoginService {
         user.setToken(token);
         userRepo.save(user);
 
-        HashMap<String,String> jsonResponse = new HashMap<>();
-        jsonResponse.put("token",token);
-        jsonResponse.put("user_group",user.getUgId().toString());
+//        HashMap<String,String> jsonResponse = new HashMap<>();
+//        jsonResponse.put("token",token);
+//        jsonResponse.put("user_group",user.getUgId().toString());
 
         response.setCode("200");
-        response.setData(jsonResponse);
+        response.setData(token);
         response.setMessage("success");
 
         return new ResponseEntity<>(response, HttpStatus.OK);
