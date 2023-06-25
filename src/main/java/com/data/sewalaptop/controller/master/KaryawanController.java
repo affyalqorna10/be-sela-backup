@@ -25,13 +25,6 @@ public class KaryawanController {
         return karyawanService.savekaryawan(request);
     }
 
-    @DeleteMapping("/delete/{karyawanId}")
-    public ResponseEntity<?> saveKaryawan(@RequestHeader Map<String,String> header, @PathVariable Long karyawanId){
-
-        jwtService.filter(header);
-        return karyawanService.deleteKaryawan(karyawanId);
-    }
-
     @GetMapping("/get_karyawan_by/{karyawanId}")
     public ResponseEntity<?> getBykaryawanId(@RequestHeader Map<String,String> header,@PathVariable Long karyawanId){
 
@@ -50,5 +43,36 @@ public class KaryawanController {
 
         jwtService.filter(header);
         return karyawanService.getAll();
+    }
+
+        @PutMapping("/update")
+    public Map<String, Object> updateDevice (@RequestHeader Map<String,String> header,
+                                             @RequestParam(value = "karyawanId")
+                                             Long karyawanId,
+                                             @RequestBody MstKaryawanDTO mstKaryawanDto){
+        Map<String, Object> mapResult = new HashMap<>();
+
+        MstKaryawan mstKaryawan = karyawanRepository.findById(karyawanId).orElse(null);
+
+        mstKaryawan.setDivisiId(mstKaryawanDto.getDivisiId());
+        mstKaryawan.setNikKaryawan(mstKaryawanDto.getNikKaryawan());
+        mstKaryawan.setNamaDepan(mstKaryawanDto.getNamaDepan());
+        mstKaryawan.setNamaBelakang(mstKaryawanDto.getNamaBelakang());
+        mstKaryawan.setEmailKaryawan(mstKaryawanDto.getEmailKaryawan());
+        mstKaryawan.setAlamatKaryawan(mstKaryawanDto.getAlamatKaryawan());
+        mstKaryawan.setTelpKaryawan(mstKaryawanDto.getTelpKaryawan());
+
+        mapResult.put("message", "Update success");
+        mapResult.put("data", karyawanRepository.save(mstKaryawan));
+
+        jwtService.filter(header);
+        return mapResult;
+    }
+
+        @DeleteMapping("/delete/{karyawanId}")
+    public ResponseEntity<?> saveKaryawan(@RequestHeader Map<String,String> header, @PathVariable Long karyawanId){
+
+        jwtService.filter(header);
+        return karyawanService.deleteKaryawan(karyawanId);
     }
 }
