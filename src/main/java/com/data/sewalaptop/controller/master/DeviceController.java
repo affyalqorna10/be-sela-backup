@@ -26,13 +26,16 @@ public class DeviceController {
 //    private Object mstDevices;
 
     @PostMapping("/save")
-    public ResponseEntity<?> saveDevice(@RequestHeader Map<String,String> header, @RequestBody MstDevicesDTO request){
+    public ResponseEntity<?> saveDevice(@RequestHeader Map<String,String> header,
+                                        @RequestBody MstDevicesDTO request)
+    {
 
         jwtService.filter(header);
         return deviceService.saveDevice(request);
     }
     @GetMapping("/get_by/{deviceId}")
-    public ResponseEntity<?> getByDeviceId(@RequestHeader Map<String,String> header,@PathVariable Long deviceId){
+    public ResponseEntity<?> getByDeviceId(@RequestHeader Map<String,String> header,
+                                           @PathVariable Long deviceId){
 
         jwtService.filter(header);
         return deviceService.getByDeviceId(deviceId);
@@ -47,8 +50,10 @@ public class DeviceController {
 
     //Update
     @PutMapping("/update")
-    public Map<String, Object> updateDevice (@RequestHeader Map<String,String> header, @RequestParam(value = "deviceId")
-                                                 Long deviceId, @RequestBody MstDevicesDTO mstDevicesDto){
+    public Map<String, Object> updateDevice (@RequestHeader Map<String,String> header,
+                                             @RequestParam(value = "deviceId")
+                                             Long deviceId,
+                                             @RequestBody MstDevicesDTO mstDevicesDto){
         Map<String, Object> mapResult = new HashMap<>();
 
         MstDevices mstDevices = deviceRepository.findById(deviceId).orElse(null);
@@ -63,7 +68,8 @@ public class DeviceController {
     }
 
     @DeleteMapping("/delete/{deviceId}")
-    public ResponseEntity<?> deleteDevice(@RequestHeader Map<String,String> header, @PathVariable Long deviceId){
+    public ResponseEntity<?> deleteDevice(@RequestHeader Map<String,String> header,
+                                          @PathVariable Long deviceId){
 
         jwtService.filter(header);
         return deviceService.deleteDevice(deviceId);
