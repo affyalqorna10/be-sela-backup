@@ -26,12 +26,6 @@ public class PengajuanController {
         return pengajuanService.savePengajuan(request);
     }
 
-    @DeleteMapping("/delete/{pengajuanId}")
-    public ResponseEntity<?> savePengajuan(@RequestHeader Map<String,String> header, @PathVariable Long pengajuanId){
-
-        jwtService.filter(header);
-        return pengajuanService.deletePengajuan(pengajuanId);
-    }
 
     @GetMapping("/get_all_by/{pengajuanId}")
     public ResponseEntity<?> getByAllPengajuanId(@RequestHeader Map<String,String> header, @PathVariable Long pengajuanId){
@@ -45,5 +39,14 @@ public class PengajuanController {
 
         jwtService.filter(header);
         return pengajuanService.getAll();
+    }
+
+    //Upadate
+
+    @DeleteMapping("/delete/{pengajuanId}")
+    public ResponseEntity<?> savePengajuan(@RequestHeader Map<String,String> header, @PathVariable Long pengajuanId){
+
+        jwtService.filter(header);
+        return pengajuanService.deletePengajuan(pengajuanId);
     }
 }
