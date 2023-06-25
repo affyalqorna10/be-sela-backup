@@ -3,6 +3,8 @@ package com.data.sewalaptop.model.master;
 import lombok.*;
 import javax.persistence.*;
 
+@Data
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity

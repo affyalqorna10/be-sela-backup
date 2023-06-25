@@ -1,6 +1,7 @@
 package com.data.sewalaptop.repository.master;
 
 import com.data.sewalaptop.model.master.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -21,5 +22,5 @@ public interface DeviceRepository extends PagingAndSortingRepository<MstDevices,
 
     @Query(value = "select mb.* from mst_device mb order by mb.device_id asc ",nativeQuery = true)
     List<MstDevices> findAll();
-
 }
+
